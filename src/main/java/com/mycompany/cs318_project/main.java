@@ -55,6 +55,11 @@ public class main extends javax.swing.JFrame {
         btn_play.setFont(new java.awt.Font("IrisUPC", 1, 38)); // NOI18N
         btn_play.setText("Play");
         btn_play.setToolTipText("");
+        btn_play.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_playMouseClicked(evt);
+            }
+        });
         btn_play.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_playActionPerformed(evt);
@@ -64,6 +69,11 @@ public class main extends javax.swing.JFrame {
         btn_Exit.setFont(new java.awt.Font("IrisUPC", 1, 38)); // NOI18N
         btn_Exit.setText("Exit");
         btn_Exit.setToolTipText("");
+        btn_Exit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_ExitMouseClicked(evt);
+            }
+        });
         btn_Exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_ExitActionPerformed(evt);
@@ -233,6 +243,16 @@ public class main extends javax.swing.JFrame {
     private void btn_playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_playActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_playActionPerformed
+
+    private void btn_playMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_playMouseClicked
+        homepage home = new homepage(); // สร้าง Object ของ homepage
+        home.setVisible(true); // แสดงหน้า homepage
+        this.dispose();   // TODO add your handling code here:
+    }//GEN-LAST:event_btn_playMouseClicked
+
+    private void btn_ExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ExitMouseClicked
+    System.exit(0);        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_ExitMouseClicked
 
     /**
      * @param args the command line arguments

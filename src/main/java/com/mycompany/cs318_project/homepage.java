@@ -31,10 +31,9 @@ public class homepage extends javax.swing.JFrame {
         lbl_name = new javax.swing.JLabel();
         txt_playerName = new javax.swing.JTextField();
         lbl_selectDifficulty = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btn_btnEasy = new javax.swing.JButton();
+        btn_btnMedium = new javax.swing.JButton();
+        btn_btnHard = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(244, 220, 201));
@@ -50,6 +49,8 @@ public class homepage extends javax.swing.JFrame {
         lbl_name.setText("Name");
 
         txt_playerName.setBackground(new java.awt.Color(255, 228, 207));
+        txt_playerName.setToolTipText("");
+        txt_playerName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txt_playerName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_playerNameActionPerformed(evt);
@@ -59,21 +60,37 @@ public class homepage extends javax.swing.JFrame {
         lbl_selectDifficulty.setFont(new java.awt.Font("IrisUPC", 0, 48)); // NOI18N
         lbl_selectDifficulty.setText("Select your Difficulty");
 
-        jButton1.setText("jButton1");
-
-        jButton2.setBackground(new java.awt.Color(255, 228, 207));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(92, 135, 88));
-        jButton2.setText("Easy");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_btnEasy.setBackground(new java.awt.Color(255, 228, 207));
+        btn_btnEasy.setFont(new java.awt.Font("LilyUPC", 1, 36)); // NOI18N
+        btn_btnEasy.setForeground(new java.awt.Color(92, 135, 88));
+        btn_btnEasy.setText("EASY");
+        btn_btnEasy.setToolTipText("");
+        btn_btnEasy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_btnEasyActionPerformed(evt);
             }
         });
 
-        jButton3.setText("jButton1");
+        btn_btnMedium.setBackground(new java.awt.Color(255, 228, 207));
+        btn_btnMedium.setFont(new java.awt.Font("IrisUPC", 1, 36)); // NOI18N
+        btn_btnMedium.setForeground(new java.awt.Color(255, 179, 0));
+        btn_btnMedium.setText("MEDIUM");
+        btn_btnMedium.setToolTipText("");
+        btn_btnMedium.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_btnMediumActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("jButton1");
+        btn_btnHard.setBackground(new java.awt.Color(255, 228, 207));
+        btn_btnHard.setFont(new java.awt.Font("IrisUPC", 1, 36)); // NOI18N
+        btn_btnHard.setForeground(new java.awt.Color(151, 45, 18));
+        btn_btnHard.setText("HARD");
+        btn_btnHard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_btnHardActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnel_bg2Layout = new javax.swing.GroupLayout(pnel_bg2);
         pnel_bg2.setLayout(pnel_bg2Layout);
@@ -93,15 +110,10 @@ public class homepage extends javax.swing.JFrame {
                         .addGap(323, 323, 323))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnel_bg2Layout.createSequentialGroup()
                         .addGroup(pnel_bg2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btn_btnMedium, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_btnHard, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_btnEasy, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(250, 250, 250))))
-            .addGroup(pnel_bg2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnel_bg2Layout.createSequentialGroup()
-                    .addContainerGap(283, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(251, 251, 251)))
         );
         pnel_bg2Layout.setVerticalGroup(
             pnel_bg2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,18 +124,13 @@ public class homepage extends javax.swing.JFrame {
                     .addComponent(lbl_name))
                 .addGap(41, 41, 41)
                 .addComponent(lbl_selectDifficulty)
-                .addGap(98, 98, 98)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
-            .addGroup(pnel_bg2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnel_bg2Layout.createSequentialGroup()
-                    .addGap(214, 214, 214)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(233, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(btn_btnEasy, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addComponent(btn_btnMedium, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(btn_btnHard, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49))
         );
 
         javax.swing.GroupLayout pnel_bg1Layout = new javax.swing.GroupLayout(pnel_bg1);
@@ -152,9 +159,42 @@ public class homepage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_playerNameActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btn_btnEasyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_btnEasyActionPerformed
+                                            
+    String playerName = txt_playerName.getText().trim(); 
+    if (playerName.isEmpty()) {
+      
+        javax.swing.JOptionPane.showMessageDialog(this, "Please enter your name before playing.", 
+            "Name Required", javax.swing.JOptionPane.WARNING_MESSAGE);
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, "Welcome, " + playerName + "! Starting the game...");
+    
+    }
+    }//GEN-LAST:event_btn_btnEasyActionPerformed
+
+    private void btn_btnMediumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_btnMediumActionPerformed
+        String playerName = txt_playerName.getText().trim(); 
+    if (playerName.isEmpty()) {
+      
+        javax.swing.JOptionPane.showMessageDialog(this, "Please enter your name before playing.", 
+            "Name Required", javax.swing.JOptionPane.WARNING_MESSAGE);
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, "Welcome, " + playerName + "! Starting the game...");
+    
+    }
+    }//GEN-LAST:event_btn_btnMediumActionPerformed
+
+    private void btn_btnHardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_btnHardActionPerformed
+       String playerName = txt_playerName.getText().trim(); 
+    if (playerName.isEmpty()) {
+      
+        javax.swing.JOptionPane.showMessageDialog(this, "Please enter your name before playing.", 
+            "Name Required", javax.swing.JOptionPane.WARNING_MESSAGE);
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, "Welcome, " + playerName + "! Starting the game...");
+    
+    }
+    }//GEN-LAST:event_btn_btnHardActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,10 +232,9 @@ public class homepage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btn_btnEasy;
+    private javax.swing.JButton btn_btnHard;
+    private javax.swing.JButton btn_btnMedium;
     private javax.swing.JLabel lbl_name;
     private javax.swing.JLabel lbl_selectDifficulty;
     private javax.swing.JPanel pnel_bg1;
