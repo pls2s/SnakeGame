@@ -29,6 +29,12 @@ public class homepage extends javax.swing.JFrame {
         pnel_bg1 = new javax.swing.JPanel();
         pnel_bg2 = new javax.swing.JPanel();
         lbl_name = new javax.swing.JLabel();
+        txt_playerName = new javax.swing.JTextField();
+        lbl_selectDifficulty = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(244, 220, 201));
@@ -43,21 +49,81 @@ public class homepage extends javax.swing.JFrame {
         lbl_name.setFont(new java.awt.Font("LilyUPC", 1, 36)); // NOI18N
         lbl_name.setText("Name");
 
+        txt_playerName.setBackground(new java.awt.Color(255, 228, 207));
+        txt_playerName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_playerNameActionPerformed(evt);
+            }
+        });
+
+        lbl_selectDifficulty.setFont(new java.awt.Font("IrisUPC", 0, 48)); // NOI18N
+        lbl_selectDifficulty.setText("Select your Difficulty");
+
+        jButton1.setText("jButton1");
+
+        jButton2.setBackground(new java.awt.Color(255, 228, 207));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(92, 135, 88));
+        jButton2.setText("Easy");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("jButton1");
+
+        jButton4.setText("jButton1");
+
         javax.swing.GroupLayout pnel_bg2Layout = new javax.swing.GroupLayout(pnel_bg2);
         pnel_bg2.setLayout(pnel_bg2Layout);
         pnel_bg2Layout.setHorizontalGroup(
             pnel_bg2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnel_bg2Layout.createSequentialGroup()
-                .addGap(190, 190, 190)
+                .addGap(241, 241, 241)
                 .addComponent(lbl_name)
-                .addContainerGap(694, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(txt_playerName, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(261, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnel_bg2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnel_bg2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnel_bg2Layout.createSequentialGroup()
+                        .addComponent(lbl_selectDifficulty)
+                        .addGap(323, 323, 323))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnel_bg2Layout.createSequentialGroup()
+                        .addGroup(pnel_bg2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(250, 250, 250))))
+            .addGroup(pnel_bg2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnel_bg2Layout.createSequentialGroup()
+                    .addContainerGap(283, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(251, 251, 251)))
         );
         pnel_bg2Layout.setVerticalGroup(
             pnel_bg2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnel_bg2Layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(lbl_name)
-                .addContainerGap(366, Short.MAX_VALUE))
+                .addGap(70, 70, 70)
+                .addGroup(pnel_bg2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_playerName, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_name))
+                .addGap(41, 41, 41)
+                .addComponent(lbl_selectDifficulty)
+                .addGap(98, 98, 98)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
+            .addGroup(pnel_bg2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnel_bg2Layout.createSequentialGroup()
+                    .addGap(214, 214, 214)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(233, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout pnel_bg1Layout = new javax.swing.GroupLayout(pnel_bg1);
@@ -81,6 +147,14 @@ public class homepage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txt_playerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_playerNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_playerNameActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -118,8 +192,14 @@ public class homepage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel lbl_name;
+    private javax.swing.JLabel lbl_selectDifficulty;
     private javax.swing.JPanel pnel_bg1;
     private javax.swing.JPanel pnel_bg2;
+    private javax.swing.JTextField txt_playerName;
     // End of variables declaration//GEN-END:variables
 }
