@@ -4,6 +4,13 @@
  */
 package com.mycompany.cs318_project;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 /**
  *
  * @author peera
@@ -16,6 +23,20 @@ public class homepage extends javax.swing.JFrame {
     public homepage() {
         initComponents();
     }
+    
+    public String readPlayerName() {
+    try {
+        FileInputStream fis = new FileInputStream("D:\\player.bin");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        String playerName = (String) ois.readObject(); // อ่านชื่อผู้เล่นจากไฟล์
+        ois.close();
+        fis.close();
+        return playerName;
+    } catch (IOException | ClassNotFoundException e) {
+        e.printStackTrace();
+        return null; // คืนค่า null หากเกิดข้อผิดพลาด
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -160,39 +181,89 @@ public class homepage extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_playerNameActionPerformed
 
     private void btn_btnEasyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_btnEasyActionPerformed
-                                            
-    String playerName = txt_playerName.getText().trim(); 
+     String playerName = txt_playerName.getText().trim();
     if (playerName.isEmpty()) {
-      
         javax.swing.JOptionPane.showMessageDialog(this, "Please enter your name before playing.", 
             "Name Required", javax.swing.JOptionPane.WARNING_MESSAGE);
     } else {
-        javax.swing.JOptionPane.showMessageDialog(this, "Welcome, " + playerName + "! Starting the game...");
-    
+        try {
+            // เปลี่ยนตำแหน่งไฟล์เป็นในโฟลเดอร์ Documents
+            File file = new File(System.getProperty("user.home") + "\\Documents\\player.bin");
+            if (!file.exists()) {
+                file.getParentFile().mkdirs(); // สร้างโฟลเดอร์ถ้ายังไม่มี
+                file.createNewFile(); // สร้างไฟล์ใหม่
+            }
+
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(playerName); // บันทึกชื่อผู้เล่น
+            oos.close();
+            fos.close();
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Welcome, " + playerName + "! Starting the game...");
+        } catch (IOException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "An error occurred while saving player data.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace(); // แสดงรายละเอียดข้อผิดพลาดใน Console
+        }
     }
     }//GEN-LAST:event_btn_btnEasyActionPerformed
 
     private void btn_btnMediumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_btnMediumActionPerformed
-        String playerName = txt_playerName.getText().trim(); 
+      String playerName = txt_playerName.getText().trim();
     if (playerName.isEmpty()) {
-      
         javax.swing.JOptionPane.showMessageDialog(this, "Please enter your name before playing.", 
             "Name Required", javax.swing.JOptionPane.WARNING_MESSAGE);
     } else {
-        javax.swing.JOptionPane.showMessageDialog(this, "Welcome, " + playerName + "! Starting the game...");
-    
+        try {
+            // เปลี่ยนตำแหน่งไฟล์เป็นในโฟลเดอร์ Documents
+            File file = new File(System.getProperty("user.home") + "\\Documents\\player.bin");
+            if (!file.exists()) {
+                file.getParentFile().mkdirs(); // สร้างโฟลเดอร์ถ้ายังไม่มี
+                file.createNewFile(); // สร้างไฟล์ใหม่
+            }
+
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(playerName); // บันทึกชื่อผู้เล่น
+            oos.close();
+            fos.close();
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Welcome, " + playerName + "! Starting the game...");
+        } catch (IOException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "An error occurred while saving player data.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace(); // แสดงรายละเอียดข้อผิดพลาดใน Console
+        }
     }
     }//GEN-LAST:event_btn_btnMediumActionPerformed
 
     private void btn_btnHardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_btnHardActionPerformed
-       String playerName = txt_playerName.getText().trim(); 
+        String playerName = txt_playerName.getText().trim();
     if (playerName.isEmpty()) {
-      
         javax.swing.JOptionPane.showMessageDialog(this, "Please enter your name before playing.", 
             "Name Required", javax.swing.JOptionPane.WARNING_MESSAGE);
     } else {
-        javax.swing.JOptionPane.showMessageDialog(this, "Welcome, " + playerName + "! Starting the game...");
-    
+        try {
+            // เปลี่ยนตำแหน่งไฟล์เป็นในโฟลเดอร์ Documents
+            File file = new File(System.getProperty("user.home") + "\\Documents\\player.bin");
+            if (!file.exists()) {
+                file.getParentFile().mkdirs(); // สร้างโฟลเดอร์ถ้ายังไม่มี
+                file.createNewFile(); // สร้างไฟล์ใหม่
+            }
+
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(playerName); // บันทึกชื่อผู้เล่น
+            oos.close();
+            fos.close();
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Welcome, " + playerName + "! Starting the game...");
+        } catch (IOException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "An error occurred while saving player data.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace(); // แสดงรายละเอียดข้อผิดพลาดใน Console
+        }
     }
     }//GEN-LAST:event_btn_btnHardActionPerformed
 
