@@ -86,6 +86,11 @@ public class homepage extends javax.swing.JFrame {
         btn_btnEasy.setForeground(new java.awt.Color(92, 135, 88));
         btn_btnEasy.setText("EASY");
         btn_btnEasy.setToolTipText("");
+        btn_btnEasy.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_btnEasyMouseClicked(evt);
+            }
+        });
         btn_btnEasy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_btnEasyActionPerformed(evt);
@@ -181,32 +186,7 @@ public class homepage extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_playerNameActionPerformed
 
     private void btn_btnEasyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_btnEasyActionPerformed
-     String playerName = txt_playerName.getText().trim();
-    if (playerName.isEmpty()) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Please enter your name before playing.", 
-            "Name Required", javax.swing.JOptionPane.WARNING_MESSAGE);
-    } else {
-        try {
-            // เปลี่ยนตำแหน่งไฟล์เป็นในโฟลเดอร์ Documents
-            File file = new File(System.getProperty("user.home") + "\\Documents\\player.bin");
-            if (!file.exists()) {
-                file.getParentFile().mkdirs(); // สร้างโฟลเดอร์ถ้ายังไม่มี
-                file.createNewFile(); // สร้างไฟล์ใหม่
-            }
-
-            FileOutputStream fos = new FileOutputStream(file);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(playerName); // บันทึกชื่อผู้เล่น
-            oos.close();
-            fos.close();
-
-            javax.swing.JOptionPane.showMessageDialog(this, "Welcome, " + playerName + "! Starting the game...");
-        } catch (IOException e) {
-            javax.swing.JOptionPane.showMessageDialog(this, 
-                "An error occurred while saving player data.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace(); // แสดงรายละเอียดข้อผิดพลาดใน Console
-        }
-    }
+    
     }//GEN-LAST:event_btn_btnEasyActionPerformed
 
     private void btn_btnMediumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_btnMediumActionPerformed
@@ -216,16 +196,16 @@ public class homepage extends javax.swing.JFrame {
             "Name Required", javax.swing.JOptionPane.WARNING_MESSAGE);
     } else {
         try {
-            // เปลี่ยนตำแหน่งไฟล์เป็นในโฟลเดอร์ Documents
+            
             File file = new File(System.getProperty("user.home") + "\\Documents\\player.bin");
             if (!file.exists()) {
-                file.getParentFile().mkdirs(); // สร้างโฟลเดอร์ถ้ายังไม่มี
-                file.createNewFile(); // สร้างไฟล์ใหม่
+                file.getParentFile().mkdirs(); 
+                file.createNewFile(); 
             }
 
             FileOutputStream fos = new FileOutputStream(file);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(playerName); // บันทึกชื่อผู้เล่น
+            oos.writeObject(playerName);
             oos.close();
             fos.close();
 
@@ -233,7 +213,7 @@ public class homepage extends javax.swing.JFrame {
         } catch (IOException e) {
             javax.swing.JOptionPane.showMessageDialog(this, 
                 "An error occurred while saving player data.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace(); // แสดงรายละเอียดข้อผิดพลาดใน Console
+            e.printStackTrace();
         }
     }
     }//GEN-LAST:event_btn_btnMediumActionPerformed
@@ -245,16 +225,16 @@ public class homepage extends javax.swing.JFrame {
             "Name Required", javax.swing.JOptionPane.WARNING_MESSAGE);
     } else {
         try {
-            // เปลี่ยนตำแหน่งไฟล์เป็นในโฟลเดอร์ Documents
+            
             File file = new File(System.getProperty("user.home") + "\\Documents\\player.bin");
             if (!file.exists()) {
-                file.getParentFile().mkdirs(); // สร้างโฟลเดอร์ถ้ายังไม่มี
-                file.createNewFile(); // สร้างไฟล์ใหม่
+                file.getParentFile().mkdirs(); 
+                file.createNewFile(); 
             }
 
             FileOutputStream fos = new FileOutputStream(file);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(playerName); // บันทึกชื่อผู้เล่น
+            oos.writeObject(playerName); 
             oos.close();
             fos.close();
 
@@ -262,10 +242,42 @@ public class homepage extends javax.swing.JFrame {
         } catch (IOException e) {
             javax.swing.JOptionPane.showMessageDialog(this, 
                 "An error occurred while saving player data.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace(); // แสดงรายละเอียดข้อผิดพลาดใน Console
+            e.printStackTrace(); 
         }
     }
     }//GEN-LAST:event_btn_btnHardActionPerformed
+
+    private void btn_btnEasyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_btnEasyMouseClicked
+      String playerName = txt_playerName.getText().trim();
+    if (playerName.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Please enter your name before playing.", 
+            "Name Required", javax.swing.JOptionPane.WARNING_MESSAGE);
+    } else {
+        try {
+            
+            File file = new File(System.getProperty("user.home") + "\\Documents\\player.bin");
+            if (!file.exists()) {
+                file.getParentFile().mkdirs(); 
+                file.createNewFile(); 
+            }
+
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(playerName); 
+            oos.close();
+            fos.close();
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Welcome, " + playerName + "! Starting the game...");
+            EasyHowToPage easy = new EasyHowToPage(); 
+            easy.setVisible(true);
+        this.dispose();    
+        } catch (IOException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "An error occurred while saving player data.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace(); 
+        }
+    }
+    }//GEN-LAST:event_btn_btnEasyMouseClicked
 
     /**
      * @param args the command line arguments

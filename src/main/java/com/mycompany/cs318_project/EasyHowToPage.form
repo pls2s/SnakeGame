@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="pnel_bg1" min="-2" max="-2" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="pnel_bg1" min="-2" max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="pnel_bg1">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="cf" green="e4" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="pnel_bg2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="lbl_Title" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="481" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
+                  <Component id="lbl_Title" min="-2" pref="43" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="pnel_bg2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="43" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Container class="javax.swing.JPanel" name="pnel_bg2">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="f1" green="fb" red="ff" type="rgb"/>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lbl_howTo1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbl_howTo2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_howTo6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_howTo7" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_howTo3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_howTo5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_howTo4" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lbl_pickey" min="-2" pref="414" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btn_ok" min="-2" pref="261" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="418" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
+                      <Component id="lbl_howTo1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="lbl_howTo2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="lbl_howTo3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="lbl_howTo5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="lbl_howTo4" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                              <Component id="lbl_howTo6" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="lbl_howTo7" min="-2" pref="31" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="lbl_pickey" min="-2" pref="282" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btn_ok" min="-2" pref="73" max="-2" attributes="0"/>
+                      <EmptySpace pref="20" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="lbl_howTo1">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="IrisUPC" size="36" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="About Rounds "/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbl_howTo2">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="IrisUPC" size="36" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Collect apples (red and green) while avoiding obstacles."/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbl_howTo3">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="IrisUPC" size="36" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Rules"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbl_howTo4">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="IrisUPC" size="36" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Red apples give +1 point, and green apples give +2 points."/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbl_howTo5">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="IrisUPC" size="36" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Use the arrow keys to control the snake"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbl_howTo6">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="IrisUPC" size="36" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Watch out for rocks scattered on the field; they are obstacles."/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbl_howTo7">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="IrisUPC" size="36" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="The game ends if the snake hits a wall, its own tail, or a rock."/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbl_pickey">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/keyboard1.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="jLabel1"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btn_ok">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="IrisUPC" size="48" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="OK"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="btn_ok.setContentAreaFilled(false); // &#xe1b;&#xe34;&#xe14;&#xe1e;&#xe37;&#xe49;&#xe19;&#xe17;&#xe35;&#xe48;&#xe1b;&#xe38;&#xe48;&#xe21;&#xe1b;&#xe01;&#xe15;&#xe34;&#xd;&#xa;btn_ok.setFocusPainted(false); // &#xe1b;&#xe34;&#xe14;&#xe01;&#xe32;&#xe23;&#xe41;&#xe2a;&#xe14;&#xe07;&#xe1c;&#xe25;&#xe42;&#xe1f;&#xe01;&#xe31;&#xe2a;&#xd;&#xa;btn_ok.setBorderPainted(false); // &#xe1b;&#xe34;&#xe14;&#xe01;&#xe32;&#xe23;&#xe41;&#xe2a;&#xe14;&#xe07;&#xe1c;&#xe25;&#xe02;&#xe2d;&#xe1a;&#xd;&#xa;btn_ok.setOpaque(false); // &#xe17;&#xe33;&#xe43;&#xe2b;&#xe49;&#xe1b;&#xe38;&#xe48;&#xe21;&#xe42;&#xe1b;&#xe23;&#xe48;&#xe07;&#xe43;&#xe2a;&#xe40;&#xe1e;&#xe37;&#xe48;&#xe2d;&#xe43;&#xe2b;&#xe49;&#xe01;&#xe32;&#xe23;&#xe27;&#xe32;&#xe14;&#xe40;&#xe07;&#xe32;&#xe17;&#xe33;&#xe07;&#xe32;&#xe19;&#xd;&#xa;btn_ok.setForeground(Color.WHITE); // &#xe2a;&#xe35;&#xe02;&#xe49;&#xe2d;&#xe04;&#xe27;&#xe32;&#xe21;&#xd;&#xa;btn_ok.setFont(new Font(&quot;LilyUPC&quot;, Font.BOLD, 36)); // &#xe15;&#xe31;&#xe49;&#xe07;&#xe1f;&#xe2d;&#xe19;&#xe15;&#xe4c;&#xd;&#xa;&#xd;&#xa;// &#xe1b;&#xe23;&#xe31;&#xe1a;&#xe41;&#xe15;&#xe48;&#xe07; UI &#xe2a;&#xe33;&#xe2b;&#xe23;&#xe31;&#xe1a;&#xe01;&#xe32;&#xe23;&#xe27;&#xe32;&#xe14;&#xe1b;&#xe38;&#xe48;&#xe21;&#xd;&#xa;btn_ok.setUI(new javax.swing.plaf.basic.BasicButtonUI() {&#xd;&#xa;    private boolean isHovered = false; // &#xe15;&#xe31;&#xe27;&#xe41;&#xe1b;&#xe23;&#xe2a;&#xe33;&#xe2b;&#xe23;&#xe31;&#xe1a;&#xe15;&#xe23;&#xe27;&#xe08;&#xe08;&#xe31;&#xe1a; Hover&#xd;&#xa;&#xd;&#xa;    @Override&#xd;&#xa;    public void paint(Graphics g, JComponent c) {&#xd;&#xa;        Graphics2D g2 = (Graphics2D) g.create();&#xd;&#xa;        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);&#xd;&#xa;&#xd;&#xa;        int width = c.getWidth();&#xd;&#xa;        int height = c.getHeight();&#xd;&#xa;&#xd;&#xa;        // &#xe27;&#xe32;&#xe14;&#xe40;&#xe07;&#xe32;&#xe14;&#xe49;&#xe32;&#xe19;&#xe2b;&#xe25;&#xe31;&#xe07;&#xe1b;&#xe38;&#xe48;&#xe21;&#xd;&#xa;        g2.setColor(new Color(255, 102, 0, 100)); // &#xe2a;&#xe35;&#xe40;&#xe07;&#xe32; (&#xe2a;&#xe49;&#xe21;&#xe2d;&#xe48;&#xe2d;&#xe19;&#xe42;&#xe1b;&#xe23;&#xe48;&#xe07;&#xe41;&#xe2a;&#xe07;)&#xd;&#xa;        g2.fillRoundRect(5, 10, width - 10, height - 10, 30, 30);&#xd;&#xa;&#xd;&#xa;        // &#xe27;&#xe32;&#xe14;&#xe1e;&#xe37;&#xe49;&#xe19;&#xe2b;&#xe25;&#xe31;&#xe07;&#xe1b;&#xe38;&#xe48;&#xe21; (&#xe44;&#xe25;&#xe48;&#xe23;&#xe30;&#xe14;&#xe31;&#xe1a;&#xe2a;&#xe35;)&#xd;&#xa;        GradientPaint gradientPaint = new GradientPaint(&#xd;&#xa;            0, 0,&#xd;&#xa;            isHovered ? new Color(255, 204, 0) : new Color(255, 153, 0), // &#xe2a;&#xe35;&#xe40;&#xe21;&#xe37;&#xe48;&#xe2d; Hover &#xe2b;&#xe23;&#xe37;&#xe2d;&#xe1b;&#xe01;&#xe15;&#xe34;&#xd;&#xa;            0, height,&#xd;&#xa;            isHovered ? new Color(255, 180, 0) : new Color(255, 102, 0)&#xd;&#xa;        );&#xd;&#xa;        g2.setPaint(gradientPaint);&#xd;&#xa;        g2.fillRoundRect(0, 0, width - 10, height - 10, 30, 30);&#xd;&#xa;&#xd;&#xa;        // &#xe27;&#xe32;&#xe14;&#xe02;&#xe49;&#xe2d;&#xe04;&#xe27;&#xe32;&#xe21;&#xe02;&#xe2d;&#xe07;&#xe1b;&#xe38;&#xe48;&#xe21;&#xd;&#xa;        super.paint(g, c);&#xd;&#xa;        g2.dispose();&#xd;&#xa;    }&#xd;&#xa;&#xd;&#xa;    @Override&#xd;&#xa;    protected void installListeners(final AbstractButton b) {&#xd;&#xa;        super.installListeners(b);&#xd;&#xa;&#xd;&#xa;        // &#xe40;&#xe1e;&#xe34;&#xe48;&#xe21; MouseListener &#xe40;&#xe1e;&#xe37;&#xe48;&#xe2d;&#xe08;&#xe31;&#xe14;&#xe01;&#xe32;&#xe23; Hover Effect&#xd;&#xa;        b.addMouseListener(new java.awt.event.MouseAdapter() {&#xd;&#xa;            @Override&#xd;&#xa;            public void mouseEntered(java.awt.event.MouseEvent e) {&#xd;&#xa;                isHovered = true;&#xd;&#xa;                b.repaint();&#xd;&#xa;            }&#xd;&#xa;&#xd;&#xa;            @Override&#xd;&#xa;            public void mouseExited(java.awt.event.MouseEvent e) {&#xd;&#xa;                isHovered = false;&#xd;&#xa;                b.repaint();&#xd;&#xa;            }&#xd;&#xa;        });&#xd;&#xa;    }&#xd;&#xa;});&#xd;&#xa;"/>
+              </AuxValues>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JLabel" name="lbl_Title">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="IrisUPC" size="48" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="[EASY] How To Play"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>

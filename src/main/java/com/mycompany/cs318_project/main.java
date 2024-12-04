@@ -234,6 +234,7 @@ public class main extends javax.swing.JFrame {
         getContentPane().add(panel_right);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ExitActionPerformed
