@@ -5,12 +5,16 @@
 package com.mycompany.cs318_project;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
 
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -29,6 +33,7 @@ public class MediumGame extends javax.swing.JFrame {
     initComponents();
     initGame();
     initKeyListener();
+    initDirectionAngles();
     }
     
     
@@ -71,13 +76,18 @@ public class MediumGame extends javax.swing.JFrame {
             cell.setOpaque(true); 
             Point point = new Point(x, y);
             if (point.equals(snakeBody.get(0))) {
-                cell.setBackground(new Color(0, 153, 0)); 
+                double angle = directionAngles.get(direction); // ดึงองศาของทิศทางปัจจุบัน
+                ImageIcon rotatedHead = rotateIcon(snakeHeadIcon, angle); // หมุนภาพหัวงู
+                cell.setIcon(rotatedHead);
+                cell.setBackground(Color.WHITE);
             } else if (snakeBody.contains(point)) {
                 int index = snakeBody.indexOf(point);
                 if (index % 2 == 1) {
-                    cell.setBackground(new Color(102, 255, 102));
+                    cell.setIcon(snakeBodyDarkIcon);
+                    cell.setBackground(Color.WHITE);
                 } else {
-                    cell.setBackground(new Color(0, 153, 0));
+                    cell.setIcon(snakeBodyLightIcon);
+                    cell.setBackground(Color.WHITE);
                 }
             } else if (point.equals(apple)) {
                 if (isRedApple) {
@@ -345,7 +355,31 @@ public class MediumGame extends javax.swing.JFrame {
             }
         });
     }
+     private ImageIcon rotateIcon(ImageIcon icon, double angle) {
+    Image image = icon.getImage();
+    int width = image.getWidth(null);
+    int height = image.getHeight(null);
+
+    BufferedImage rotatedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g2d = rotatedImage.createGraphics();
+
+    // ตั้งค่าการหมุน
+    g2d.rotate(Math.toRadians(angle), width / 2.0, height / 2.0);
+    g2d.drawImage(image, 0, 0, null);
+    g2d.dispose();
+
+    return new ImageIcon(rotatedImage);
+    }
     
+    private Map<String, Double> directionAngles;
+
+    private void initDirectionAngles() {
+    directionAngles = new HashMap<>();
+    directionAngles.put("UP", 0.0);       // หันขึ้น (0 องศา)
+    directionAngles.put("DOWN", 180.0);  // หันลง (180 องศา)
+    directionAngles.put("LEFT", 270.0);  // หันซ้าย (270 องศา)
+    directionAngles.put("RIGHT", 90.0);  // หันขวา (90 องศา)
+}
     private Point greenApple;
     private Point redApple;
 
@@ -354,7 +388,9 @@ public class MediumGame extends javax.swing.JFrame {
     
     private ImageIcon radAppleIcon;
     private ImageIcon greenAppleIcon;
-    
+    private ImageIcon snakeHeadIcon;
+    private ImageIcon snakeBodyDarkIcon;
+    private ImageIcon snakeBodyLightIcon;
     private ImageIcon RockIcon;
 
     private Point apple; 
@@ -367,11 +403,22 @@ public class MediumGame extends javax.swing.JFrame {
     ImageIcon originalIconApple = new ImageIcon(getClass().getResource("/applered_1.png"));
     ImageIcon originalIconRock = new ImageIcon(getClass().getResource("/rock.png"));
     ImageIcon originalIconGreenApple = new ImageIcon(getClass().getResource("/applegreen.png"));
+    ImageIcon originalIconhead = new ImageIcon(getClass().getResource("/snake_head.png"));
+    ImageIcon originalIcondarkBody = new ImageIcon(getClass().getResource("/snake_body_dark.png"));
+    ImageIcon originalIconLightBody = new ImageIcon(getClass().getResource("/snake_body_dark.png"));
+    
+   
     
     Image scaledImageApple = originalIconApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     Image scaledImageRock = originalIconRock.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     Image scaledGreenApple = originalIconGreenApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    Image scaledHead = originalIconhead.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    Image scaleddarkBody = originalIcondarkBody.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    Image scaledLightBody = originalIconLightBody.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     
+    snakeHeadIcon = new ImageIcon(scaledHead); // เปลี่ยน path ตามไฟล์ของคุณ
+    snakeBodyDarkIcon = new ImageIcon(scaleddarkBody);
+    snakeBodyLightIcon = new ImageIcon(scaledLightBody);
     radAppleIcon = new ImageIcon(scaledImageApple);
     RockIcon = new ImageIcon(scaledImageRock);
     greenAppleIcon = new ImageIcon(scaledGreenApple);

@@ -5,12 +5,16 @@
 package com.mycompany.cs318_project;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
 
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -29,6 +33,7 @@ public class EasyGame extends javax.swing.JFrame {
     initComponents();
     initGame();
     initKeyListener();
+    initDirectionAngles();
     }
     
     
@@ -54,6 +59,17 @@ public class EasyGame extends javax.swing.JFrame {
     private void loadAppleImage() {
     ImageIcon originalIcon = new ImageIcon(getClass().getResource("/applered_1.png"));
     Image scaledImage = originalIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    ImageIcon originalIconhead = new ImageIcon(getClass().getResource("/snake_head.png"));
+    ImageIcon originalIcondarkBody = new ImageIcon(getClass().getResource("/snake_body_dark.png"));
+    ImageIcon originalIconLightBody = new ImageIcon(getClass().getResource("/snake_body_light.png"));
+     Image scaledHead = originalIconhead.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    Image scaleddarkBody = originalIcondarkBody.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    Image scaledLightBody = originalIconLightBody.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    snakeHeadIcon = new ImageIcon(scaledHead); // เปลี่ยน path ตามไฟล์ของคุณ
+    snakeBodyDarkIcon = new ImageIcon(scaleddarkBody);
+    snakeBodyLightIcon = new ImageIcon(scaledLightBody);
+   
+    
     appleIcon = new ImageIcon(scaledImage);
     }
     
@@ -65,13 +81,18 @@ public class EasyGame extends javax.swing.JFrame {
             cell.setOpaque(true); // เปิดให้ JLabel มีพื้นหลัง
             Point point = new Point(x, y);
             if (point.equals(snakeBody.get(0))) {
-                cell.setBackground(new Color(0, 153, 0)); 
+                double angle = directionAngles.get(direction); // ดึงองศาของทิศทางปัจจุบัน
+                ImageIcon rotatedHead = rotateIcon(snakeHeadIcon, angle); // หมุนภาพหัวงู
+                cell.setIcon(rotatedHead);
+                cell.setBackground(Color.WHITE);
             } else if (snakeBody.contains(point)) {
                 int index = snakeBody.indexOf(point);
                 if (index % 2 == 1) {
-                    cell.setBackground(new Color(102, 255, 102));
+                    cell.setIcon(snakeBodyDarkIcon);
+                    cell.setBackground(Color.WHITE);
                 } else {
-                    cell.setBackground(new Color(0, 153, 0));
+                    cell.setIcon(snakeBodyLightIcon);
+                    cell.setBackground(Color.WHITE);
                 }
             } else if (point.equals(food)) {
                 cell.setIcon(appleIcon);
@@ -323,13 +344,42 @@ public class EasyGame extends javax.swing.JFrame {
             }
         });
     }
+    
+    private ImageIcon snakeHeadIcon;
+    private ImageIcon snakeBodyDarkIcon;
+    private ImageIcon snakeBodyLightIcon;
     private ImageIcon appleIcon;
     private List<Point> snakeBody; // ตำแหน่งของงู
     private Point food; // ตำแหน่งของอาหาร
     private String direction = "RIGHT"; // ทิศทางเริ่มต้น
     private Timer timer; // ตัวจับเวลา
     private final int GRID_SIZE = 23; // ขนาดของกริด
+    
+ private ImageIcon rotateIcon(ImageIcon icon, double angle) {
+    Image image = icon.getImage();
+    int width = image.getWidth(null);
+    int height = image.getHeight(null);
 
+    BufferedImage rotatedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g2d = rotatedImage.createGraphics();
+
+    // ตั้งค่าการหมุน
+    g2d.rotate(Math.toRadians(angle), width / 2.0, height / 2.0);
+    g2d.drawImage(image, 0, 0, null);
+    g2d.dispose();
+
+    return new ImageIcon(rotatedImage);
+    }
+    
+    private Map<String, Double> directionAngles;
+
+    private void initDirectionAngles() {
+    directionAngles = new HashMap<>();
+    directionAngles.put("UP", 0.0);       // หันขึ้น (0 องศา)
+    directionAngles.put("DOWN", 180.0);  // หันลง (180 องศา)
+    directionAngles.put("LEFT", 270.0);  // หันซ้าย (270 องศา)
+    directionAngles.put("RIGHT", 90.0);  // หันขวา (90 องศา)
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lbl_picApple;
     private javax.swing.JLabel lbl_point;

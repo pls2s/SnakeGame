@@ -5,12 +5,16 @@
 package com.mycompany.cs318_project;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
 
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -29,6 +33,7 @@ public class HardGame extends javax.swing.JFrame {
     initComponents();
     initGame();
     initKeyListener();
+    initDirectionAngles();
     }
     
     
@@ -97,32 +102,37 @@ public class HardGame extends javax.swing.JFrame {
             cell.setOpaque(true); 
             Point point = new Point(x, y);
             if (point.equals(snakeBody.get(0))) {
-                cell.setBackground(new Color(0, 153, 0)); 
+                double angle = directionAngles.get(direction); // ดึงองศาของทิศทางปัจจุบัน
+                ImageIcon rotatedHead = rotateIcon(snakeHeadIcon, angle); // หมุนภาพหัวงู
+                cell.setIcon(rotatedHead);
+                cell.setBackground(Color.WHITE);
             } else if (snakeBody.contains(point)) {
                 int index = snakeBody.indexOf(point);
-                if (index % 2 == 1) {
-                    cell.setBackground(new Color(102, 255, 102));
+                if (index % 2 == 0) {
+                    cell.setIcon(snakeBodyDarkIcon);
+                    cell.setBackground(Color.WHITE);
                 } else {
-                    cell.setBackground(new Color(0, 153, 0));
+                    cell.setIcon(snakeBodyLightIcon);
+                    cell.setBackground(Color.WHITE);
                 }
             } else if (point.equals(apple)) {
                 switch (appleType) {
-                    case "RED":
+                    case "RED" -> {
                         cell.setIcon(radAppleIcon);
                         cell.setBackground(Color.WHITE); // แอปเปิ้ลสีแดง
-                        break;
-                    case "GREEN":
+                    }
+                    case "GREEN" -> {
                         cell.setIcon(greenAppleIcon);
                         cell.setBackground(Color.WHITE); // แอปเปิ้ลสีเขียว
-                        break;
-                    case "BLACK":
+                    }
+                    case "BLACK" -> {
                         cell.setIcon(blackAppleIcon);
                         cell.setBackground(Color.WHITE); // แอปเปิ้ลสีดำ
-                        break;
-                    case "GOLD":
+                    }
+                    case "GOLD" -> {
                         cell.setIcon(goldAppleIcon);
                         cell.setBackground(Color.WHITE); // แอปเปิ้ลสีทอง
-                        break;
+                    }
                 }
             } else if (rocks.contains(point)) {
                 cell.setIcon(RockIcon);
@@ -141,7 +151,7 @@ public class HardGame extends javax.swing.JFrame {
     }
 
 
-
+  
     
     private void moveSnake() {
         Point head = snakeBody.get(0);
@@ -399,6 +409,9 @@ public class HardGame extends javax.swing.JFrame {
     private List<Point> snakeBody; 
     private List<Point> grassList;
     
+    private ImageIcon snakeHeadIcon;
+    private ImageIcon snakeBodyDarkIcon;
+    private ImageIcon snakeBodyLightIcon;
     private ImageIcon radAppleIcon;
     private ImageIcon greenAppleIcon;
     private ImageIcon goldAppleIcon;
@@ -421,6 +434,9 @@ public class HardGame extends javax.swing.JFrame {
     ImageIcon originalIconGoldApple = new ImageIcon(getClass().getResource("/applegold.png"));
     ImageIcon originalIconBlackApple = new ImageIcon(getClass().getResource("/applegold.png"));
     ImageIcon originalIcongrass = new ImageIcon(getClass().getResource("/grass.png"));
+    ImageIcon originalIconhead = new ImageIcon(getClass().getResource("/snake_head.png"));
+    ImageIcon originalIcondarkBody = new ImageIcon(getClass().getResource("/snake_body_dark.png"));
+    ImageIcon originalIconLightBody = new ImageIcon(getClass().getResource("/snake_body_dark.png"));
     
     Image scaledImageApple = originalIconApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     Image scaledImageRock = originalIconRock.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
@@ -428,7 +444,14 @@ public class HardGame extends javax.swing.JFrame {
     Image scaledGoldApple = originalIconGoldApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     Image scaledBlackApple = originalIconBlackApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     Image scaledGrass = originalIcongrass.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    Image scaledHead = originalIconhead.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    Image scaleddarkBody = originalIcondarkBody.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    Image scaledLightBody = originalIconLightBody.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     
+    snakeHeadIcon = new ImageIcon(scaledHead); 
+    snakeBodyDarkIcon = new ImageIcon(scaleddarkBody);
+    snakeBodyLightIcon = new ImageIcon(scaledLightBody);
+   
     radAppleIcon = new ImageIcon(scaledImageApple);
     RockIcon = new ImageIcon(scaledImageRock);
     greenAppleIcon = new ImageIcon(scaledGreenApple);
@@ -436,6 +459,33 @@ public class HardGame extends javax.swing.JFrame {
     blackAppleIcon = new ImageIcon(scaledBlackApple);
     grassIcon = new ImageIcon(scaledGrass);
     }
+    
+    private ImageIcon rotateIcon(ImageIcon icon, double angle) {
+    Image image = icon.getImage();
+    int width = image.getWidth(null);
+    int height = image.getHeight(null);
+
+    BufferedImage rotatedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g2d = rotatedImage.createGraphics();
+
+    // ตั้งค่าการหมุน
+    g2d.rotate(Math.toRadians(angle), width / 2.0, height / 2.0);
+    g2d.drawImage(image, 0, 0, null);
+    g2d.dispose();
+
+    return new ImageIcon(rotatedImage);
+    }
+    
+    private Map<String, Double> directionAngles;
+
+    private void initDirectionAngles() {
+    directionAngles = new HashMap<>();
+    directionAngles.put("UP", 0.0);       // หันขึ้น (0 องศา)
+    directionAngles.put("DOWN", 180.0);  // หันลง (180 องศา)
+    directionAngles.put("LEFT", 270.0);  // หันซ้าย (270 องศา)
+    directionAngles.put("RIGHT", 90.0);  // หันขวา (90 องศา)
+}
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lbl_picApple;
