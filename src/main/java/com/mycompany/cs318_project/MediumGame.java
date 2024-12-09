@@ -36,33 +36,39 @@ public class MediumGame extends javax.swing.JFrame {
         loadAppleImage();
         snakeBody = new ArrayList<>();
         snakeBody.add(new Point(0, 0)); // จุดเริ่มต้นของงู
-        spawnFood(); // สุ่มตำแหน่งอาหาร
+        spawnItems(); // สุ่มตำแหน่งอาหาร
         timer = new Timer(200, e -> moveSnake()); // ตั้ง Timer
         timer.start();
     }
 
-    private void spawnFood() {
+    private void spawnItems() {
         Random rand = new Random();
-        int x = rand.nextInt(GRID_SIZE);
-        int y = rand.nextInt(GRID_SIZE);
-        food = new Point(x, y);
-    }
-    
-    
+        int appleType = rand.nextInt(3); 
+        isRedApple = (appleType == 0); 
 
-    
-    private void loadAppleImage() {
-    ImageIcon originalIcon = new ImageIcon(getClass().getResource("/applered_1.png"));
-    Image scaledImage = originalIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-    appleIcon = new ImageIcon(scaledImage);
+        int appleX = rand.nextInt(GRID_SIZE);
+        int appleY = rand.nextInt(GRID_SIZE);
+        apple = new Point(appleX, appleY);
+        
+        rocks = new ArrayList<>();
+        for (int i = 0; i < 7; i++) { 
+            int rockX = rand.nextInt(GRID_SIZE);
+            int rockY = rand.nextInt(GRID_SIZE);
+            Point rock = new Point(rockX, rockY);
+
+            
+            if (!snakeBody.contains(rock) && !rock.equals(redApple) && !rock.equals(greenApple)) {
+                rocks.add(rock);
+            }
+        }
     }
-    
+
   private void renderGame() {
     pnel_playpnel.removeAll();
     for (int y = 0; y < GRID_SIZE; y++) {
         for (int x = 0; x < GRID_SIZE; x++) {
             JLabel cell = new JLabel();
-            cell.setOpaque(true); // เปิดให้ JLabel มีพื้นหลัง
+            cell.setOpaque(true); 
             Point point = new Point(x, y);
             if (point.equals(snakeBody.get(0))) {
                 cell.setBackground(new Color(0, 153, 0)); 
@@ -73,11 +79,20 @@ public class MediumGame extends javax.swing.JFrame {
                 } else {
                     cell.setBackground(new Color(0, 153, 0));
                 }
-            } else if (point.equals(food)) {
-                cell.setIcon(appleIcon);
-                cell.setBackground(Color.WHITE); 
-            } else {
+            } else if (point.equals(apple)) {
+                if (isRedApple) {
+                    cell.setIcon(radAppleIcon);
+                    cell.setBackground(Color.WHITE);
+                  } else {
+                    cell.setIcon(greenAppleIcon);
+                    cell.setBackground(Color.WHITE);
+                }  
+            } else if (rocks.contains(point)) {
+                cell.setIcon(RockIcon);
                 cell.setBackground(Color.WHITE);
+               
+            } else {
+                cell.setBackground(Color.WHITE); 
             }
             pnel_playpnel.add(cell);
         }
@@ -89,7 +104,7 @@ public class MediumGame extends javax.swing.JFrame {
 
 
     
-        private void moveSnake() {
+    private void moveSnake() {
         Point head = snakeBody.get(0);
         Point newHead = switch (direction) {
             case "UP" -> new Point(head.x, head.y - 1);
@@ -99,22 +114,28 @@ public class MediumGame extends javax.swing.JFrame {
             default -> head;
         };
 
-        // ตรวจสอบชนกำแพงหรือตัวเอง
-        if (newHead.x < 0 || newHead.x >= GRID_SIZE || newHead.y < 0 || newHead.y >= GRID_SIZE || snakeBody.contains(newHead)) {
-            timer.stop();
-            javax.swing.JOptionPane.showMessageDialog(this, "Game Over");
-            return;
+        
+         if (newHead.x < 0 || newHead.x >= GRID_SIZE || newHead.y < 0 || newHead.y >= GRID_SIZE 
+            || snakeBody.contains(newHead) || rocks.contains(newHead)) {
+        timer.stop();
+        javax.swing.JOptionPane.showMessageDialog(this, "Game Over");
+        return;
         }
 
         snakeBody.add(0, newHead);
 
-        // ตรวจสอบการกินอาหาร
-        if (newHead.equals(food)) {
-            spawnFood();
-            lbl_point.setText(String.valueOf(Integer.parseInt(lbl_point.getText()) + 1));
+       
+        if (newHead.equals(apple)) {
+            if (isRedApple) {
+                lbl_point.setText(String.valueOf(Integer.parseInt(lbl_point.getText()) + 1)); // แอปเปิ้ลแดง +1
+            } else {
+                lbl_point.setText(String.valueOf(Integer.parseInt(lbl_point.getText()) + 2)); // แอปเปิ้ลเขียว +2
+        }
+            spawnItems();
         } else {
             snakeBody.remove(snakeBody.size() - 1); // ลบส่วนท้าย
         }
+
 
         renderGame();
     }
@@ -324,13 +345,47 @@ public class MediumGame extends javax.swing.JFrame {
             }
         });
     }
-    private ImageIcon appleIcon;
-    private List<Point> snakeBody; // ตำแหน่งของงู
-    private Point food; // ตำแหน่งของอาหาร
-    private String direction = "RIGHT"; // ทิศทางเริ่มต้น
-    private Timer timer; // ตัวจับเวลา
-    private final int GRID_SIZE = 23; // ขนาดของกริด
+    
+    private Point greenApple;
+    private Point redApple;
 
+    private List<Point> rocks;
+    private List<Point> snakeBody; 
+    
+    private ImageIcon radAppleIcon;
+    private ImageIcon greenAppleIcon;
+    private ImageIcon goldAppleIcon;
+    private ImageIcon blackAppleIcon;
+    private ImageIcon RockIcon;
+    
+    
+    
+    private Point apple; 
+    private boolean isRedApple; 
+    private String direction = "RIGHT";
+    private Timer timer;
+    private final int GRID_SIZE = 23;
+    
+    private void loadAppleImage() {
+    ImageIcon originalIconApple = new ImageIcon(getClass().getResource("/applered_1.png"));
+    ImageIcon originalIconRock = new ImageIcon(getClass().getResource("/rock.png"));
+    ImageIcon originalIconGreenApple = new ImageIcon(getClass().getResource("/applegreen.png"));
+    ImageIcon originalIconGoldApple = new ImageIcon(getClass().getResource("/applegold.png"));
+    ImageIcon originalIconBlackApple = new ImageIcon(getClass().getResource("/applegold.png"));
+    
+    Image scaledImageApple = originalIconApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    Image scaledImageRock = originalIconRock.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    Image scaledGreenApple = originalIconGreenApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    Image scaledGoldApple = originalIconGoldApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    Image scaledBlackApple = originalIconBlackApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    
+    radAppleIcon = new ImageIcon(scaledImageApple);
+    RockIcon = new ImageIcon(scaledImageRock);
+    greenAppleIcon = new ImageIcon(scaledGreenApple);
+    goldAppleIcon = new ImageIcon(scaledGoldApple);
+    blackAppleIcon = new ImageIcon(scaledBlackApple);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lbl_picApple;
     private javax.swing.JLabel lbl_point;

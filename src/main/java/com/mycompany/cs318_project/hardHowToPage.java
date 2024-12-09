@@ -83,6 +83,11 @@ public class hardHowToPage extends javax.swing.JFrame {
 
         btn_ok.setFont(new java.awt.Font("IrisUPC", 1, 48)); // NOI18N
         btn_ok.setText("OK");
+        btn_ok.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_okMouseClicked(evt);
+            }
+        });
 
         lbl_howTo8.setFont(new java.awt.Font("IrisUPC", 0, 36)); // NOI18N
         lbl_howTo8.setText("* Black: -2 points");
@@ -247,6 +252,12 @@ public class hardHowToPage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_okMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_okMouseClicked
+     HardGame hardGame = new HardGame();
+    hardGame.setVisible(true);
+    this.dispose();   
+    }//GEN-LAST:event_btn_okMouseClicked
 
     /**
      * @param args the command line arguments
