@@ -354,12 +354,9 @@ public class MediumGame extends javax.swing.JFrame {
     
     private ImageIcon radAppleIcon;
     private ImageIcon greenAppleIcon;
-    private ImageIcon goldAppleIcon;
-    private ImageIcon blackAppleIcon;
+    
     private ImageIcon RockIcon;
-    
-    
-    
+
     private Point apple; 
     private boolean isRedApple; 
     private String direction = "RIGHT";
@@ -370,20 +367,15 @@ public class MediumGame extends javax.swing.JFrame {
     ImageIcon originalIconApple = new ImageIcon(getClass().getResource("/applered_1.png"));
     ImageIcon originalIconRock = new ImageIcon(getClass().getResource("/rock.png"));
     ImageIcon originalIconGreenApple = new ImageIcon(getClass().getResource("/applegreen.png"));
-    ImageIcon originalIconGoldApple = new ImageIcon(getClass().getResource("/applegold.png"));
-    ImageIcon originalIconBlackApple = new ImageIcon(getClass().getResource("/applegold.png"));
     
     Image scaledImageApple = originalIconApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     Image scaledImageRock = originalIconRock.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     Image scaledGreenApple = originalIconGreenApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-    Image scaledGoldApple = originalIconGoldApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-    Image scaledBlackApple = originalIconBlackApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     
     radAppleIcon = new ImageIcon(scaledImageApple);
     RockIcon = new ImageIcon(scaledImageRock);
     greenAppleIcon = new ImageIcon(scaledGreenApple);
-    goldAppleIcon = new ImageIcon(scaledGoldApple);
-    blackAppleIcon = new ImageIcon(scaledBlackApple);
+  
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

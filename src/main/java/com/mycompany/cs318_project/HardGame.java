@@ -36,33 +36,65 @@ public class HardGame extends javax.swing.JFrame {
         loadAppleImage();
         snakeBody = new ArrayList<>();
         snakeBody.add(new Point(0, 0)); // จุดเริ่มต้นของงู
-        spawnFood(); // สุ่มตำแหน่งอาหาร
+        spawnItems(); // สุ่มตำแหน่งอาหาร
         timer = new Timer(200, e -> moveSnake()); // ตั้ง Timer
         timer.start();
     }
 
-    private void spawnFood() {
+        private void spawnItems() {
         Random rand = new Random();
-        int x = rand.nextInt(GRID_SIZE);
-        int y = rand.nextInt(GRID_SIZE);
-        food = new Point(x, y);
-    }
-    
-    
 
-    
-    private void loadAppleImage() {
-    ImageIcon originalIcon = new ImageIcon(getClass().getResource("/applered_1.png"));
-    Image scaledImage = originalIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-    appleIcon = new ImageIcon(scaledImage);
+        // สุ่มตำแหน่งแอปเปิ้ล
+        int appleX = rand.nextInt(GRID_SIZE);
+        int appleY = rand.nextInt(GRID_SIZE);
+        apple = new Point(appleX, appleY);
+
+        // สุ่มประเภทแอปเปิ้ลตามอัตราส่วน
+        int chance = rand.nextInt(100); // สุ่มเลข 0-99
+        if (chance < 60) {
+            appleType = "RED"; // 60%
+        } else if (chance < 85) {
+            appleType = "GREEN"; // 25% (60% + 25% = 85%)
+        } else if (chance < 95) {
+            appleType = "BLACK"; // 10% (85% + 10% = 95%)
+        } else {
+            appleType = "GOLD"; // 5% (95% + 5% = 100%)
+        }
+
+        
+        rocks = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            int rockX = rand.nextInt(GRID_SIZE);
+            int rockY = rand.nextInt(GRID_SIZE);
+            Point rock = new Point(rockX, rockY);
+
+            
+            if (!snakeBody.contains(rock) && !rock.equals(apple)) {
+                rocks.add(rock);
+            }
+        }
+
+        
+        grassList = new ArrayList<>();
+        for (int i = 0; i < 7; i++) { // เพิ่ม Grass 3 จุด
+            int grassX = rand.nextInt(GRID_SIZE);
+            int grassY = rand.nextInt(GRID_SIZE);
+            Point grassPoint = new Point(grassX, grassY);
+
+           
+            if (!snakeBody.contains(grassPoint) && !rocks.contains(grassPoint) && !grassPoint.equals(apple)) {
+                grassList.add(grassPoint);
+            }
+        }
     }
-    
+
+
   private void renderGame() {
     pnel_playpnel.removeAll();
     for (int y = 0; y < GRID_SIZE; y++) {
         for (int x = 0; x < GRID_SIZE; x++) {
             JLabel cell = new JLabel();
-            cell.setOpaque(true); // เปิดให้ JLabel มีพื้นหลัง
+            cell.setOpaque(true); 
             Point point = new Point(x, y);
             if (point.equals(snakeBody.get(0))) {
                 cell.setBackground(new Color(0, 153, 0)); 
@@ -73,11 +105,33 @@ public class HardGame extends javax.swing.JFrame {
                 } else {
                     cell.setBackground(new Color(0, 153, 0));
                 }
-            } else if (point.equals(food)) {
-                cell.setIcon(appleIcon);
-                cell.setBackground(Color.WHITE); 
+            } else if (point.equals(apple)) {
+                switch (appleType) {
+                    case "RED":
+                        cell.setIcon(radAppleIcon);
+                        cell.setBackground(Color.WHITE); // แอปเปิ้ลสีแดง
+                        break;
+                    case "GREEN":
+                        cell.setIcon(greenAppleIcon);
+                        cell.setBackground(Color.WHITE); // แอปเปิ้ลสีเขียว
+                        break;
+                    case "BLACK":
+                        cell.setIcon(blackAppleIcon);
+                        cell.setBackground(Color.WHITE); // แอปเปิ้ลสีดำ
+                        break;
+                    case "GOLD":
+                        cell.setIcon(goldAppleIcon);
+                        cell.setBackground(Color.WHITE); // แอปเปิ้ลสีทอง
+                        break;
+                }
+            } else if (rocks.contains(point)) {
+                cell.setIcon(RockIcon);
+                cell.setBackground(Color.WHITE); // หิน
+            } else if (grassList.contains(point)) {
+                cell.setIcon(grassIcon);
+                cell.setBackground(Color.WHITE); // หญ้า
             } else {
-                cell.setBackground(Color.WHITE);
+                cell.setBackground(Color.WHITE); // ช่องว่าง
             }
             pnel_playpnel.add(cell);
         }
@@ -89,7 +143,7 @@ public class HardGame extends javax.swing.JFrame {
 
 
     
-        private void moveSnake() {
+    private void moveSnake() {
         Point head = snakeBody.get(0);
         Point newHead = switch (direction) {
             case "UP" -> new Point(head.x, head.y - 1);
@@ -99,8 +153,15 @@ public class HardGame extends javax.swing.JFrame {
             default -> head;
         };
 
-        // ตรวจสอบชนกำแพงหรือตัวเอง
-        if (newHead.x < 0 || newHead.x >= GRID_SIZE || newHead.y < 0 || newHead.y >= GRID_SIZE || snakeBody.contains(newHead)) {
+        // ตรวจสอบการชนกำแพง, ตัวเอง, หิน หรือหญ้า
+        if (newHead.x < 0 || newHead.x >= GRID_SIZE || newHead.y < 0 || newHead.y >= GRID_SIZE 
+                || snakeBody.contains(newHead) || rocks.contains(newHead)) {
+            timer.stop();
+            javax.swing.JOptionPane.showMessageDialog(this, "Game Over");
+            return;
+        }
+
+        if (grassList.contains(newHead)) {
             timer.stop();
             javax.swing.JOptionPane.showMessageDialog(this, "Game Over");
             return;
@@ -108,15 +169,20 @@ public class HardGame extends javax.swing.JFrame {
 
         snakeBody.add(0, newHead);
 
-        // ตรวจสอบการกินอาหาร
-        if (newHead.equals(food)) {
-            spawnFood();
-            lbl_point.setText(String.valueOf(Integer.parseInt(lbl_point.getText()) + 1));
+        
+        if (newHead.equals(apple)) {
+            switch (appleType) {
+                case "RED" -> lbl_point.setText(String.valueOf(Integer.parseInt(lbl_point.getText()) + 1)); // สีแดง +1
+                case "GREEN" -> lbl_point.setText(String.valueOf(Integer.parseInt(lbl_point.getText()) + 2)); // สีเขียว +2
+                case "BLACK" -> lbl_point.setText(String.valueOf(Integer.parseInt(lbl_point.getText()) - 2)); // สีดำ -2
+                case "GOLD" -> lbl_point.setText(String.valueOf(Integer.parseInt(lbl_point.getText()) + 5)); // สีทอง +5
+            }
+            spawnItems(); 
         } else {
             snakeBody.remove(snakeBody.size() - 1); // ลบส่วนท้าย
         }
 
-        renderGame();
+        renderGame(); // อัปเดตการแสดงผล
     }
         
     private void initKeyListener() {
@@ -326,13 +392,51 @@ public class HardGame extends javax.swing.JFrame {
             }
         });
     }
-    private ImageIcon appleIcon;
-    private List<Point> snakeBody; // ตำแหน่งของงู
-    private Point food; // ตำแหน่งของอาหาร
-    private String direction = "RIGHT"; // ทิศทางเริ่มต้น
-    private Timer timer; // ตัวจับเวลา
-    private final int GRID_SIZE = 23; // ขนาดของกริด
+    
+   
 
+    private List<Point> rocks;
+    private List<Point> snakeBody; 
+    private List<Point> grassList;
+    
+    private ImageIcon radAppleIcon;
+    private ImageIcon greenAppleIcon;
+    private ImageIcon goldAppleIcon;
+    private ImageIcon blackAppleIcon;
+    private ImageIcon RockIcon;
+    private ImageIcon grassIcon;
+    
+    
+    private String appleType;
+    private Point apple; 
+    
+    private String direction = "RIGHT";
+    private Timer timer;
+    private final int GRID_SIZE = 23;
+    
+    private void loadAppleImage() {
+    ImageIcon originalIconApple = new ImageIcon(getClass().getResource("/applered_1.png"));
+    ImageIcon originalIconRock = new ImageIcon(getClass().getResource("/rock.png"));
+    ImageIcon originalIconGreenApple = new ImageIcon(getClass().getResource("/applegreen.png"));
+    ImageIcon originalIconGoldApple = new ImageIcon(getClass().getResource("/applegold.png"));
+    ImageIcon originalIconBlackApple = new ImageIcon(getClass().getResource("/applegold.png"));
+    ImageIcon originalIcongrass = new ImageIcon(getClass().getResource("/grass.png"));
+    
+    Image scaledImageApple = originalIconApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    Image scaledImageRock = originalIconRock.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    Image scaledGreenApple = originalIconGreenApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    Image scaledGoldApple = originalIconGoldApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    Image scaledBlackApple = originalIconBlackApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    Image scaledGrass = originalIcongrass.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    
+    radAppleIcon = new ImageIcon(scaledImageApple);
+    RockIcon = new ImageIcon(scaledImageRock);
+    greenAppleIcon = new ImageIcon(scaledGreenApple);
+    goldAppleIcon = new ImageIcon(scaledGoldApple);
+    blackAppleIcon = new ImageIcon(scaledBlackApple);
+    grassIcon = new ImageIcon(scaledGrass);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lbl_picApple;
     private javax.swing.JLabel lbl_point;
