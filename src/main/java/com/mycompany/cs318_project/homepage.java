@@ -292,6 +292,9 @@ public class homepage extends javax.swing.JFrame {
             fos.close();
 
             javax.swing.JOptionPane.showMessageDialog(this, "Welcome, " + playerName + "! Starting the game...");
+            hardHowToPage hard = new hardHowToPage(); 
+            hard.setVisible(true);
+            this.dispose(); 
         } catch (IOException e) {
             javax.swing.JOptionPane.showMessageDialog(this, 
                 "An error occurred while saving player data.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
