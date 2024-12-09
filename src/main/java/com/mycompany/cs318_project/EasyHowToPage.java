@@ -231,7 +231,7 @@ public class EasyHowToPage extends javax.swing.JFrame {
     private void btn_okMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_okMouseClicked
     EasyGame easy = new EasyGame();
     easy.setVisible(true);
-    this.dispose();// TODO add your handling code here:
+    this.dispose();
     }//GEN-LAST:event_btn_okMouseClicked
 
     /**
