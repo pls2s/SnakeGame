@@ -1,8 +1,13 @@
 com\mycompany\cs318_project\homepage$7.class
+com\mycompany\cs318_project\EasyGame$2.class
+com\mycompany\cs318_project\hardHowToPage$1.class
+com\mycompany\cs318_project\hardHowToPage.class
+com\mycompany\cs318_project\EasyHowToPage$2$1.class
 com\mycompany\cs318_project\main$5.class
 com\mycompany\cs318_project\MediumHowToPage$1.class
 com\mycompany\cs318_project\main$1.class
-com\mycompany\cs318_project\EasyHowToPage$1$1.class
+com\mycompany\cs318_project\EasyGame.class
+com\mycompany\cs318_project\hardHowToPage$1$1.class
 com\mycompany\cs318_project\homepage$2.class
 com\mycompany\cs318_project\main$5$1.class
 com\mycompany\cs318_project\main$6.class
@@ -10,6 +15,8 @@ com\mycompany\cs318_project\homepage.class
 com\mycompany\cs318_project\homepage$4.class
 com\mycompany\cs318_project\main$3.class
 com\mycompany\cs318_project\EasyHowToPage$2.class
+com\mycompany\cs318_project\EasyHowToPage$3.class
+com\mycompany\cs318_project\EasyGame$1.class
 com\mycompany\cs318_project\MediumHowToPage$2.class
 com\mycompany\cs318_project\main$4.class
 com\mycompany\cs318_project\homepage$1.class
@@ -25,3 +32,4 @@ com\mycompany\cs318_project\EasyHowToPage$1.class
 com\mycompany\cs318_project\EasyHowToPage.class
 com\mycompany\cs318_project\homepage$5.class
 com\mycompany\cs318_project\homepage$8.class
+com\mycompany\cs318_project\hardHowToPage$2.class

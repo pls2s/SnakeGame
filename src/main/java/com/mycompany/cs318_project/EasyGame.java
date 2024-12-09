@@ -4,6 +4,16 @@
  */
 package com.mycompany.cs318_project;
 
+import java.awt.Color;
+
+import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import javax.swing.JLabel;
+import javax.swing.Timer;
+
 /**
  *
  * @author peera
@@ -14,7 +24,93 @@ public class EasyGame extends javax.swing.JFrame {
      * Creates new form EasyGame
      */
     public EasyGame() {
-        initComponents();
+    initComponents();
+    initGame();
+    initKeyListener();
+    }
+    private void initGame() {
+        snakeBody = new ArrayList<>();
+        snakeBody.add(new Point(0, 0)); // จุดเริ่มต้นของงู
+        spawnFood(); // สุ่มตำแหน่งอาหาร
+        timer = new Timer(200, e -> moveSnake()); // ตั้ง Timer
+        timer.start();
+    }
+
+    private void spawnFood() {
+        Random rand = new Random();
+        int x = rand.nextInt(GRID_SIZE);
+        int y = rand.nextInt(GRID_SIZE);
+        food = new Point(x, y);
+    }
+    private void renderGame() {
+    pnel_playpnel.removeAll();
+    for (int y = 0; y < GRID_SIZE; y++) {
+        for (int x = 0; x < GRID_SIZE; x++) {
+            JLabel cell = new JLabel();
+            cell.setOpaque(true);
+            Point point = new Point(x, y);
+            if (snakeBody.contains(point)) {
+                cell.setBackground(Color.GREEN); // ตัวงู
+            } else if (point.equals(food)) {
+                cell.setBackground(Color.RED); // อาหาร
+            } else {
+                cell.setBackground(Color.WHITE); // ช่องว่าง
+            }
+            pnel_playpnel.add(cell);
+        }
+    }
+    pnel_playpnel.revalidate();
+    pnel_playpnel.repaint();
+    }
+        private void moveSnake() {
+        Point head = snakeBody.get(0);
+        Point newHead = switch (direction) {
+            case "UP" -> new Point(head.x, head.y - 1);
+            case "DOWN" -> new Point(head.x, head.y + 1);
+            case "LEFT" -> new Point(head.x - 1, head.y);
+            case "RIGHT" -> new Point(head.x + 1, head.y);
+            default -> head;
+        };
+
+        // ตรวจสอบชนกำแพงหรือตัวเอง
+        if (newHead.x < 0 || newHead.x >= GRID_SIZE || newHead.y < 0 || newHead.y >= GRID_SIZE || snakeBody.contains(newHead)) {
+            timer.stop();
+            javax.swing.JOptionPane.showMessageDialog(this, "Game Over");
+            return;
+        }
+
+        snakeBody.add(0, newHead);
+
+        // ตรวจสอบการกินอาหาร
+        if (newHead.equals(food)) {
+            spawnFood();
+            lbl_point.setText(String.valueOf(Integer.parseInt(lbl_point.getText()) + 1));
+        } else {
+            snakeBody.remove(snakeBody.size() - 1); // ลบส่วนท้าย
+        }
+
+        renderGame();
+    }
+    private void initKeyListener() {
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyPressed(java.awt.event.KeyEvent e) {
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_UP -> {
+                        if (!direction.equals("DOWN")) direction = "UP";
+                    }
+                    case KeyEvent.VK_DOWN -> {
+                        if (!direction.equals("UP")) direction = "DOWN";
+                    }
+                    case KeyEvent.VK_LEFT -> {
+                        if (!direction.equals("RIGHT")) direction = "LEFT";
+                    }
+                    case KeyEvent.VK_RIGHT -> {
+                        if (!direction.equals("LEFT")) direction = "RIGHT";
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -34,7 +130,7 @@ public class EasyGame extends javax.swing.JFrame {
         pnel_right = new javax.swing.JPanel();
         pnel_buttom = new javax.swing.JPanel();
         pnel_left = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        pnel_playpnel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,7 +221,9 @@ public class EasyGame extends javax.swing.JFrame {
             .addGap(0, 456, Short.MAX_VALUE)
         );
 
-        jPanel1.setLayout(new java.awt.GridLayout(23, 23));
+        pnel_playpnel.setPreferredSize(new java.awt.Dimension(23, 20));
+        pnel_playpnel.setRequestFocusEnabled(false);
+        pnel_playpnel.setLayout(new java.awt.GridLayout(23, 23));
 
         javax.swing.GroupLayout pnel_playLayout = new javax.swing.GroupLayout(pnel_play);
         pnel_play.setLayout(pnel_playLayout);
@@ -140,7 +238,7 @@ public class EasyGame extends javax.swing.JFrame {
             .addGroup(pnel_playLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnel_playLayout.createSequentialGroup()
                     .addContainerGap(99, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 986, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnel_playpnel, javax.swing.GroupLayout.PREFERRED_SIZE, 986, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(102, Short.MAX_VALUE)))
         );
         pnel_playLayout.setVerticalGroup(
@@ -154,7 +252,7 @@ public class EasyGame extends javax.swing.JFrame {
             .addGroup(pnel_playLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnel_playLayout.createSequentialGroup()
                     .addContainerGap(98, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnel_playpnel, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(101, Short.MAX_VALUE)))
         );
 
@@ -198,14 +296,20 @@ public class EasyGame extends javax.swing.JFrame {
         });
     }
 
+    private List<Point> snakeBody; // ตำแหน่งของงู
+    private Point food; // ตำแหน่งของอาหาร
+    private String direction = "RIGHT"; // ทิศทางเริ่มต้น
+    private Timer timer; // ตัวจับเวลา
+    private final int GRID_SIZE = 23; // ขนาดของกริด
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbl_picApple;
     private javax.swing.JLabel lbl_point;
     private javax.swing.JPanel pnel_buttom;
     private javax.swing.JPanel pnel_header;
     private javax.swing.JPanel pnel_left;
     private javax.swing.JPanel pnel_play;
+    private javax.swing.JPanel pnel_playpnel;
     private javax.swing.JPanel pnel_right;
     private javax.swing.JPanel pnel_top;
     // End of variables declaration//GEN-END:variables

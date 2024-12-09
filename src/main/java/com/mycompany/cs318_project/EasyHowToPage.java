@@ -80,6 +80,11 @@ public class EasyHowToPage extends javax.swing.JFrame {
 
         btn_ok.setFont(new java.awt.Font("IrisUPC", 1, 48)); // NOI18N
         btn_ok.setText("OK");
+        btn_ok.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_okMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnel_bg2Layout = new javax.swing.GroupLayout(pnel_bg2);
         pnel_bg2.setLayout(pnel_bg2Layout);
@@ -206,7 +211,7 @@ public class EasyHowToPage extends javax.swing.JFrame {
                     .addGroup(pnel_bg1Layout.createSequentialGroup()
                         .addGap(447, 447, 447)
                         .addComponent(lbl_Title)))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnel_bg1Layout.setVerticalGroup(
             pnel_bg1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,13 +220,19 @@ public class EasyHowToPage extends javax.swing.JFrame {
                 .addComponent(lbl_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnel_bg2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         getContentPane().add(pnel_bg1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_okMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_okMouseClicked
+    EasyGame easy = new EasyGame();
+    easy.setVisible(true);
+    this.dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_btn_okMouseClicked
 
     /**
      * @param args the command line arguments

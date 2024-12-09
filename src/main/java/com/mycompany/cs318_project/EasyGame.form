@@ -105,7 +105,7 @@
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="99" max="32767" attributes="0"/>
-                      <Component id="jPanel1" min="-2" pref="986" max="-2" attributes="0"/>
+                      <Component id="pnel_playpnel" min="-2" pref="986" max="-2" attributes="0"/>
                       <EmptySpace pref="102" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -124,7 +124,7 @@
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="98" max="32767" attributes="0"/>
-                      <Component id="jPanel1" min="-2" pref="457" max="-2" attributes="0"/>
+                      <Component id="pnel_playpnel" min="-2" pref="457" max="-2" attributes="0"/>
                       <EmptySpace pref="101" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -213,7 +213,13 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel1">
+        <Container class="javax.swing.JPanel" name="pnel_playpnel">
+          <Properties>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[23, 20]"/>
+            </Property>
+            <Property name="requestFocusEnabled" type="boolean" value="false"/>
+          </Properties>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
             <Property name="columns" type="int" value="23"/>
