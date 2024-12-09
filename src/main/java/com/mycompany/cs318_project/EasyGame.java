@@ -5,12 +5,14 @@
 package com.mycompany.cs318_project;
 
 import java.awt.Color;
+import java.awt.Image;
 
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
@@ -28,7 +30,10 @@ public class EasyGame extends javax.swing.JFrame {
     initGame();
     initKeyListener();
     }
+    
+    
     private void initGame() {
+        loadAppleImage();
         snakeBody = new ArrayList<>();
         snakeBody.add(new Point(0, 0)); // จุดเริ่มต้นของงู
         spawnFood(); // สุ่มตำแหน่งอาหาร
@@ -42,19 +47,37 @@ public class EasyGame extends javax.swing.JFrame {
         int y = rand.nextInt(GRID_SIZE);
         food = new Point(x, y);
     }
-    private void renderGame() {
+    
+    
+
+    
+    private void loadAppleImage() {
+    ImageIcon originalIcon = new ImageIcon(getClass().getResource("/applered_1.png"));
+    Image scaledImage = originalIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    appleIcon = new ImageIcon(scaledImage);
+    }
+    
+  private void renderGame() {
     pnel_playpnel.removeAll();
     for (int y = 0; y < GRID_SIZE; y++) {
         for (int x = 0; x < GRID_SIZE; x++) {
             JLabel cell = new JLabel();
-            cell.setOpaque(true);
+            cell.setOpaque(true); // เปิดให้ JLabel มีพื้นหลัง
             Point point = new Point(x, y);
-            if (snakeBody.contains(point)) {
-                cell.setBackground(Color.GREEN); // ตัวงู
+            if (point.equals(snakeBody.get(0))) {
+                cell.setBackground(new Color(0, 153, 0)); 
+            } else if (snakeBody.contains(point)) {
+                int index = snakeBody.indexOf(point);
+                if (index % 2 == 1) {
+                    cell.setBackground(new Color(102, 255, 102));
+                } else {
+                    cell.setBackground(new Color(0, 153, 0));
+                }
             } else if (point.equals(food)) {
-                cell.setBackground(Color.RED); // อาหาร
+                cell.setIcon(appleIcon);
+                cell.setBackground(Color.WHITE); 
             } else {
-                cell.setBackground(Color.WHITE); // ช่องว่าง
+                cell.setBackground(Color.WHITE);
             }
             pnel_playpnel.add(cell);
         }
@@ -62,6 +85,10 @@ public class EasyGame extends javax.swing.JFrame {
     pnel_playpnel.revalidate();
     pnel_playpnel.repaint();
     }
+
+
+
+    
         private void moveSnake() {
         Point head = snakeBody.get(0);
         Point newHead = switch (direction) {
@@ -91,6 +118,7 @@ public class EasyGame extends javax.swing.JFrame {
 
         renderGame();
     }
+        
     private void initKeyListener() {
         addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
@@ -295,7 +323,7 @@ public class EasyGame extends javax.swing.JFrame {
             }
         });
     }
-
+    private ImageIcon appleIcon;
     private List<Point> snakeBody; // ตำแหน่งของงู
     private Point food; // ตำแหน่งของอาหาร
     private String direction = "RIGHT"; // ทิศทางเริ่มต้น
