@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.cs318_project;
 import java.io.*;
 import java.util.*;
@@ -10,6 +6,7 @@ public class ScoreManager {
 
     public static void saveScore(String playerName, int score, String difficulty) {
         String scoreFile = getScoreFile(difficulty);
+        ensureFileExists(scoreFile); // ตรวจสอบและสร้างไฟล์ถ้ายังไม่มี
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(scoreFile, true))) {
             writer.write(playerName + "," + score);
             writer.newLine();
@@ -21,6 +18,7 @@ public class ScoreManager {
     public static Map<String, Integer> loadScores(String difficulty) {
         Map<String, Integer> scores = new HashMap<>();
         String scoreFile = getScoreFile(difficulty);
+        ensureFileExists(scoreFile); // ตรวจสอบและสร้างไฟล์ถ้ายังไม่มี
         try (BufferedReader reader = new BufferedReader(new FileReader(scoreFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -51,5 +49,16 @@ public class ScoreManager {
             default -> throw new IllegalArgumentException("Invalid difficulty: " + difficulty);
         }
     }
-}
 
+    private static void ensureFileExists(String filePath) {
+        File file = new File(filePath);
+        try {
+            if (!file.exists()) {
+                file.getParentFile().mkdirs(); // สร้างโฟลเดอร์หากยังไม่มี
+                file.createNewFile(); // สร้างไฟล์ใหม่หากยังไม่มี
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

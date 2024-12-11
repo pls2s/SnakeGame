@@ -26,11 +26,12 @@ public final class Endgame extends javax.swing.JFrame {
     private final String playerName;
     private final int finalScore;
     private final String difficulty;
-public Endgame(String playerName, int finalScore, String difficulty) {
+    public Endgame(String playerName, int finalScore, String difficulty) {
     initComponents();
     this.playerName = playerName;
     this.finalScore = finalScore;
     this.difficulty = difficulty;
+    customizeTable();
     lbl_Score.setText(String.valueOf(finalScore)); // แสดงคะแนน
     loadScores(); // โหลดคะแนนเข้า JTable
 }
@@ -93,6 +94,7 @@ public Endgame(String playerName, int finalScore, String difficulty) {
         lbl_Score.setFont(new java.awt.Font("LilyUPC", 1, 48)); // NOI18N
         lbl_Score.setText("0");
 
+        tableScore.setFont(new java.awt.Font("LilyUPC", 0, 24)); // NOI18N
         tableScore.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -101,6 +103,13 @@ public Endgame(String playerName, int finalScore, String difficulty) {
                 "Name", "Score"
             }
         ));
+        tableScore.setFocusable(false);
+        tableScore.setGridColor(new java.awt.Color(244, 220, 201));
+        tableScore.setRowHeight(30);
+        tableScore.setRowSelectionAllowed(false);
+        tableScore.setSelectionBackground(new java.awt.Color(247, 220, 192));
+        tableScore.setShowHorizontalLines(true);
+        tableScore.setShowVerticalLines(true);
         jScrollPane2.setViewportView(tableScore);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -348,28 +357,69 @@ public Endgame(String playerName, int finalScore, String difficulty) {
             }
         });
     }
-    
-public void loadScores() {
-    Map<String, Integer> scores = ScoreManager.loadScores(difficulty);
-    DefaultTableModel model = (DefaultTableModel) tableScore.getModel();
+        private void customizeTable() {
+        // ตั้งค่าฟอนต์หัวตาราง
+        javax.swing.table.JTableHeader header = tableScore.getTableHeader();
+        header.setFont(new Font("LilyUPC", Font.BOLD, 38));
+        header.setBackground(new Color(253, 130, 0));
+        header.setForeground(Color.WHITE);
 
-    model.setRowCount(0); // ล้างข้อมูลเก่าในตาราง
-    System.out.println("Cleared table. Adding rows...");
+        // ขยายความสูงหัวตาราง
+        header.setPreferredSize(new java.awt.Dimension(header.getPreferredSize().width, 40)); // ปรับเป็นความสูงที่ต้องการ (40 px)
 
-    // จัดเรียงคะแนนจากมากไปน้อย
-    scores.entrySet()
-          .stream()
-          .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue())) // เรียงจากมากไปน้อย
-          .forEach(entry -> {
-              System.out.println("Adding to table: " + entry.getKey() + " - " + entry.getValue());
-              model.addRow(new Object[]{entry.getKey(), entry.getValue()});
-          });
+        // ตั้งค่าฟอนต์เซลล์
+        tableScore.setFont(new Font("IrisUPC", Font.PLAIN, 20));
+        tableScore.setRowHeight(30);
+        tableScore.setGridColor(new Color(244, 220, 201));
 
-    tableScore.revalidate();
-    tableScore.repaint();
+        // จัดเซลล์ให้อยู่ตรงกลาง
+        javax.swing.table.DefaultTableCellRenderer centerRenderer = new javax.swing.table.DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(javax.swing.JLabel.CENTER);
+        tableScore.setDefaultRenderer(Object.class, centerRenderer);
 
-    System.out.println("Table updated successfully.");
-}
+        // แถวสลับสี
+        javax.swing.table.DefaultTableCellRenderer alternatingRenderer = new javax.swing.table.DefaultTableCellRenderer() {
+            @Override
+            public java.awt.Component getTableCellRendererComponent(
+                    javax.swing.JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                java.awt.Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (!isSelected) {
+                    c.setBackground(row % 2 == 0 ? new Color(255, 241, 207) : new Color(255, 251, 241)); // สีแถวสลับ
+                }
+                return c;
+            }
+        };
+        for (int i = 0; i < tableScore.getColumnCount(); i++) {
+            tableScore.getColumnModel().getColumn(i).setCellRenderer(alternatingRenderer);
+        }
+
+        // เปลี่ยนสีพื้นหลังของ JTable
+        tableScore.setBackground(new Color(255, 255, 240)); // สีพื้นหลังตาราง
+        tableScore.setOpaque(true);
+
+        // เปลี่ยนสีพื้นหลังของ JScrollPane ที่ห่อหุ้ม JTable
+        if (tableScore.getParent() instanceof javax.swing.JViewport viewport) {
+            viewport.setBackground(new Color(255, 255, 240)); // สีพื้นหลังด้านหลังตาราง
+        }
+    }
+
+
+    public void loadScores() {
+        Map<String, Integer> scores = ScoreManager.loadScores(difficulty);
+        DefaultTableModel model = (DefaultTableModel) tableScore.getModel();
+        model.setRowCount(0); 
+        System.out.println("Cleared table. Adding rows...");
+        scores.entrySet()
+              .stream()
+              .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue())) 
+              .forEach(entry -> {
+                  System.out.println("Adding to table: " + entry.getKey() + " - " + entry.getValue());
+                  model.addRow(new Object[]{entry.getKey(), entry.getValue()});
+              });
+        tableScore.revalidate();
+        tableScore.repaint();
+        System.out.println("Table updated successfully.");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_End;
