@@ -394,7 +394,7 @@ public final class Endgame extends javax.swing.JFrame {
         }
 
         // เปลี่ยนสีพื้นหลังของ JTable
-        tableScore.setBackground(new Color(255, 255, 240)); // สีพื้นหลังตาราง
+        tableScore.setBackground(new Color(255, 221, 187)); // สีพื้นหลังตาราง
         tableScore.setOpaque(true);
 
         // เปลี่ยนสีพื้นหลังของ JScrollPane ที่ห่อหุ้ม JTable

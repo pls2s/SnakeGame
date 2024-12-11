@@ -172,62 +172,80 @@ public class HardGame extends javax.swing.JFrame {
 
   
     
-    private void moveSnake() {
-        Point head = snakeBody.get(0);
-        Point newHead = switch (direction) {
-            case "UP" -> new Point(head.x, head.y - 1);
-            case "DOWN" -> new Point(head.x, head.y + 1);
-            case "LEFT" -> new Point(head.x - 1, head.y);
-            case "RIGHT" -> new Point(head.x + 1, head.y);
-            default -> head;
-        };
+   private void moveSnake() {
+    Point head = snakeBody.get(0);
+    Point newHead = switch (direction) {
+        case "UP" -> new Point(head.x, head.y - 1);
+        case "DOWN" -> new Point(head.x, head.y + 1);
+        case "LEFT" -> new Point(head.x - 1, head.y);
+        case "RIGHT" -> new Point(head.x + 1, head.y);
+        default -> head;
+    };
 
-        // ตรวจสอบการชนกำแพง, ตัวเอง, หิน หรือหญ้า
-        if (newHead.x < 0 || newHead.x >= GRID_SIZE || newHead.y < 0 || newHead.y >= GRID_SIZE 
-                || snakeBody.contains(newHead) || rocks.contains(newHead)) {
-            
-            timer.stop();
-            javax.swing.JOptionPane.showMessageDialog(this, "Game Over");
-            String difficulty = "hard"; 
-            int finalScore = Integer.parseInt(lbl_point.getText());
-            ScoreManager.saveScore(playerName, finalScore, difficulty);
-            Endgame endGamePage = new Endgame(playerName, finalScore, difficulty); // เปิดหน้าจอ Endgame
-            endGamePage.loadScores(); // โหลดคะแนนสำหรับแสดงใน JTable
-            endGamePage.setVisible(true);
-            this.dispose();
-            return;
-        }
-
-        if (grassList.contains(newHead)) {
-            timer.stop();
-            String difficulty = "hard";
-            javax.swing.JOptionPane.showMessageDialog(this, "Game Over");
-            int finalScore = Integer.parseInt(lbl_point.getText());
-            ScoreManager.saveScore(playerName, finalScore, difficulty);
-            Endgame endGamePage = new Endgame(playerName, finalScore, difficulty); // เปิดหน้าจอ Endgame
-            
-            endGamePage.setVisible(true);
-            this.dispose();
-            return;
-        }
-
-        snakeBody.add(0, newHead);
-
-        
-        if (newHead.equals(apple)) {
-            switch (appleType) {
-                case "RED" -> lbl_point.setText(String.valueOf(Integer.parseInt(lbl_point.getText()) + 1)); // สีแดง +1
-                case "GREEN" -> lbl_point.setText(String.valueOf(Integer.parseInt(lbl_point.getText()) + 2)); // สีเขียว +2
-                case "BLACK" -> lbl_point.setText(String.valueOf(Integer.parseInt(lbl_point.getText()) - 2)); // สีดำ -2
-                case "GOLD" -> lbl_point.setText(String.valueOf(Integer.parseInt(lbl_point.getText()) + 5)); // สีทอง +5
-            }
-            spawnItems(); 
-        } else {
-            snakeBody.remove(snakeBody.size() - 1); // ลบส่วนท้าย
-        }
-
-        renderGame(); // อัปเดตการแสดงผล
+    // ตรวจสอบการชนกำแพง, ตัวเอง, หิน หรือหญ้า
+    if (newHead.x < 0 || newHead.x >= GRID_SIZE || newHead.y < 0 || newHead.y >= GRID_SIZE 
+            || snakeBody.contains(newHead) || rocks.contains(newHead)) {
+        timer.stop();
+        javax.swing.JOptionPane.showMessageDialog(this, "Game Over");
+        String difficulty = "hard";
+        int finalScore = Integer.parseInt(lbl_point.getText());
+        ScoreManager.saveScore(playerName, finalScore, difficulty);
+        Endgame endGamePage = new Endgame(playerName, finalScore, difficulty); // เปิดหน้าจอ Endgame
+        endGamePage.loadScores(); // โหลดคะแนนสำหรับแสดงใน JTable
+        endGamePage.setVisible(true);
+        this.dispose();
+        return;
     }
+
+    if (grassList.contains(newHead)) {
+        timer.stop();
+        javax.swing.JOptionPane.showMessageDialog(this, "Game Over");
+        String difficulty = "hard";
+        int finalScore = Integer.parseInt(lbl_point.getText());
+        ScoreManager.saveScore(playerName, finalScore, difficulty);
+        Endgame endGamePage = new Endgame(playerName, finalScore, difficulty); // เปิดหน้าจอ Endgame
+        endGamePage.setVisible(true);
+        this.dispose();
+        return;
+    }
+
+    snakeBody.add(0, newHead);
+
+    if (newHead.equals(apple)) {
+        switch (appleType) {
+            case "RED" -> {
+                lbl_point.setText(String.valueOf(Integer.parseInt(lbl_point.getText()) + 1)); // เพิ่มคะแนน
+                // เพิ่มความยาวงู 1 ส่วน
+                
+            }
+            case "GREEN" -> {
+                lbl_point.setText(String.valueOf(Integer.parseInt(lbl_point.getText()) + 2)); // เพิ่มคะแนน
+                // เพิ่มความยาวงู 2 ส่วน
+                snakeBody.add(snakeBody.get(snakeBody.size() - 1));
+               
+            }
+            case "BLACK" -> {
+                lbl_point.setText(String.valueOf(Integer.parseInt(lbl_point.getText()) - 2)); // ลดคะแนน
+                // ลดความยาวงู 1 ส่วน (หากงูมีความยาวมากกว่า 1)
+                if (snakeBody.size() > 1) {
+                    snakeBody.remove(snakeBody.size() - 1);
+                }
+            }
+            case "GOLD" -> {
+                lbl_point.setText(String.valueOf(Integer.parseInt(lbl_point.getText()) + 5)); // เพิ่มคะแนน
+                
+                snakeBody.add(snakeBody.get(snakeBody.size() - 1));
+                snakeBody.add(snakeBody.get(snakeBody.size() - 1));
+                snakeBody.add(snakeBody.get(snakeBody.size() - 1));
+            }
+        }
+        spawnItems();
+    } else {
+        snakeBody.remove(snakeBody.size() - 1); // ลบส่วนท้ายงู
+    }
+
+    renderGame(); // อัปเดตการแสดงผล
+}
         
     private void initKeyListener() {
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -469,11 +487,11 @@ public class HardGame extends javax.swing.JFrame {
     ImageIcon originalIconRock = new ImageIcon(getClass().getResource("/rock.png"));
     ImageIcon originalIconGreenApple = new ImageIcon(getClass().getResource("/applegreen.png"));
     ImageIcon originalIconGoldApple = new ImageIcon(getClass().getResource("/applegold.png"));
-    ImageIcon originalIconBlackApple = new ImageIcon(getClass().getResource("/applegold.png"));
+    ImageIcon originalIconBlackApple = new ImageIcon(getClass().getResource("/appleblack.png"));
     ImageIcon originalIcongrass = new ImageIcon(getClass().getResource("/grass.png"));
     ImageIcon originalIconhead = new ImageIcon(getClass().getResource("/snake_head.png"));
     ImageIcon originalIcondarkBody = new ImageIcon(getClass().getResource("/snake_body_dark.png"));
-    ImageIcon originalIconLightBody = new ImageIcon(getClass().getResource("/snake_body_dark.png"));
+    ImageIcon originalIconLightBody = new ImageIcon(getClass().getResource("/snake_body_light.png"));
     
     Image scaledImageApple = originalIconApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     Image scaledImageRock = originalIconRock.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);

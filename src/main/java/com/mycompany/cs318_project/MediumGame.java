@@ -158,7 +158,7 @@ public class MediumGame extends javax.swing.JFrame {
                 lbl_point.setText(String.valueOf(Integer.parseInt(lbl_point.getText()) + 1)); // แอปเปิ้ลแดง +1
             } else {
                 lbl_point.setText(String.valueOf(Integer.parseInt(lbl_point.getText()) + 2)); // แอปเปิ้ลเขียว +2
-        }
+        }       snakeBody.add(snakeBody.get(snakeBody.size() - 1));
             spawnItems();
         } else {
             snakeBody.remove(snakeBody.size() - 1); // ลบส่วนท้าย
@@ -424,7 +424,7 @@ public class MediumGame extends javax.swing.JFrame {
     ImageIcon originalIconGreenApple = new ImageIcon(getClass().getResource("/applegreen.png"));
     ImageIcon originalIconhead = new ImageIcon(getClass().getResource("/snake_head.png"));
     ImageIcon originalIcondarkBody = new ImageIcon(getClass().getResource("/snake_body_dark.png"));
-    ImageIcon originalIconLightBody = new ImageIcon(getClass().getResource("/snake_body_dark.png"));
+    ImageIcon originalIconLightBody = new ImageIcon(getClass().getResource("/snake_body_light.png"));
     
    
     
