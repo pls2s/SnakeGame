@@ -20,7 +20,9 @@ public class hardHowToPage extends javax.swing.JFrame {
     /**
      * Creates new form hardHowToPage
      */
-    public hardHowToPage() {
+    private final String playerName;
+    public hardHowToPage(String playerName) {
+        this.playerName = playerName;
         initComponents();
     }
 
@@ -254,7 +256,7 @@ public class hardHowToPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_okMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_okMouseClicked
-     HardGame hardGame = new HardGame();
+     HardGame hardGame = new HardGame(playerName);
     hardGame.setVisible(true);
     this.dispose();   
     }//GEN-LAST:event_btn_okMouseClicked
@@ -289,7 +291,8 @@ public class hardHowToPage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new hardHowToPage().setVisible(true);
+                String playerName = "DefaultPlayer";
+                new hardHowToPage(playerName).setVisible(true);
             }
         });
     }

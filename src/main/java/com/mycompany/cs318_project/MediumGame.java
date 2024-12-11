@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 /**
@@ -29,7 +30,9 @@ public class MediumGame extends javax.swing.JFrame {
     /**
      * Creates new form EasyGame
      */
-    public MediumGame() {
+    private final String playerName;
+    public MediumGame(String playerName) {
+    this.playerName = playerName;
     initComponents();
     initGame();
     initKeyListener();
@@ -68,41 +71,49 @@ public class MediumGame extends javax.swing.JFrame {
         }
     }
 
-  private void renderGame() {
+    private void renderGame() {
     pnel_playpnel.removeAll();
     for (int y = 0; y < GRID_SIZE; y++) {
         for (int x = 0; x < GRID_SIZE; x++) {
             JLabel cell = new JLabel();
             cell.setOpaque(true); 
+            cell.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(0xFFE4CF)));
+            
             Point point = new Point(x, y);
             if (point.equals(snakeBody.get(0))) {
                 double angle = directionAngles.get(direction); // ดึงองศาของทิศทางปัจจุบัน
                 ImageIcon rotatedHead = rotateIcon(snakeHeadIcon, angle); // หมุนภาพหัวงู
                 cell.setIcon(rotatedHead);
-                cell.setBackground(Color.WHITE);
+                cell.setBackground(new Color(0xFFFBF1));
             } else if (snakeBody.contains(point)) {
                 int index = snakeBody.indexOf(point);
                 if (index % 2 == 1) {
                     cell.setIcon(snakeBodyDarkIcon);
-                    cell.setBackground(Color.WHITE);
+                    cell.setBackground(new Color(0xFFFBF1));
                 } else {
                     cell.setIcon(snakeBodyLightIcon);
-                    cell.setBackground(Color.WHITE);
+                    cell.setBackground(new Color(0xFFFBF1));
                 }
             } else if (point.equals(apple)) {
                 if (isRedApple) {
                     cell.setIcon(radAppleIcon);
-                    cell.setBackground(Color.WHITE);
+                    cell.setHorizontalAlignment(SwingConstants.CENTER); // จัดให้อยู่ตรงกลางแนวนอน
+                    cell.setVerticalAlignment(SwingConstants.CENTER);
+                    cell.setBackground(new Color(0xFFFBF1));
                   } else {
                     cell.setIcon(greenAppleIcon);
-                    cell.setBackground(Color.WHITE);
+                    cell.setHorizontalAlignment(SwingConstants.CENTER); // จัดให้อยู่ตรงกลางแนวนอน
+                    cell.setVerticalAlignment(SwingConstants.CENTER);
+                    cell.setBackground(new Color(0xFFFBF1));
                 }  
             } else if (rocks.contains(point)) {
                 cell.setIcon(RockIcon);
-                cell.setBackground(Color.WHITE);
+                cell.setHorizontalAlignment(JLabel.CENTER); // จัดก้อนหินให้อยู่กลางแนวนอน
+                cell.setVerticalAlignment(JLabel.CENTER);
+                cell.setBackground(new Color(0xFFFBF1));
                
             } else {
-                cell.setBackground(Color.WHITE); 
+                cell.setBackground(new Color(0xFFFBF1));
             }
             pnel_playpnel.add(cell);
         }
@@ -128,7 +139,14 @@ public class MediumGame extends javax.swing.JFrame {
          if (newHead.x < 0 || newHead.x >= GRID_SIZE || newHead.y < 0 || newHead.y >= GRID_SIZE 
             || snakeBody.contains(newHead) || rocks.contains(newHead)) {
         timer.stop();
+        String difficulty = "medium";
         javax.swing.JOptionPane.showMessageDialog(this, "Game Over");
+         int finalScore = Integer.parseInt(lbl_point.getText());
+            ScoreManager.saveScore(playerName, finalScore,difficulty); // บันทึกคะแนน
+            Endgame endGamePage = new Endgame(playerName, finalScore,difficulty); // เปิดหน้าจอ Endgame
+            
+            endGamePage.setVisible(true);
+            this.dispose();
         return;
         }
 
@@ -351,7 +369,8 @@ public class MediumGame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MediumGame().setVisible(true);
+                String playerName = "DefaultPlayer"; 
+                new MediumGame(playerName).setVisible(true);
             }
         });
     }
@@ -410,7 +429,7 @@ public class MediumGame extends javax.swing.JFrame {
    
     
     Image scaledImageApple = originalIconApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-    Image scaledImageRock = originalIconRock.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    Image scaledImageRock = originalIconRock.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
     Image scaledGreenApple = originalIconGreenApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     Image scaledHead = originalIconhead.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     Image scaleddarkBody = originalIcondarkBody.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);

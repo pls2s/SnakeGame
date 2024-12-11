@@ -21,8 +21,10 @@ public class EasyHowToPage extends javax.swing.JFrame {
     /**
      * Creates new form EasyHowToPage
      */
-    public EasyHowToPage() {
+    private final String playerName;
+    public EasyHowToPage(String playerName) {
         initComponents();
+        this.playerName = playerName;
     }
 
     /**
@@ -229,7 +231,7 @@ public class EasyHowToPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_okMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_okMouseClicked
-    EasyGame easy = new EasyGame();
+    EasyGame easy = new EasyGame(playerName);
     easy.setVisible(true);
     this.dispose();
     }//GEN-LAST:event_btn_okMouseClicked
@@ -264,7 +266,8 @@ public class EasyHowToPage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EasyHowToPage().setVisible(true);
+                String playerName = "DefaultPlayer";
+                new EasyHowToPage(playerName).setVisible(true);
             }
         });
     }

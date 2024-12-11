@@ -228,7 +228,7 @@ public class homepage extends javax.swing.JFrame {
             fos.close();
 
             javax.swing.JOptionPane.showMessageDialog(this, "Welcome, " + playerName + "! Starting the game...");
-            EasyHowToPage easy = new EasyHowToPage(); 
+            EasyHowToPage easy = new EasyHowToPage(playerName); 
             easy.setVisible(true);
             this.dispose();    
         } catch (IOException e) {
@@ -260,7 +260,7 @@ public class homepage extends javax.swing.JFrame {
             fos.close();
 
             javax.swing.JOptionPane.showMessageDialog(this, "Welcome, " + playerName + "! Starting the game...");
-            MediumHowToPage medium = new MediumHowToPage(); 
+            MediumHowToPage medium = new MediumHowToPage(playerName); 
             medium.setVisible(true);
             this.dispose();   
         } catch (IOException e) {
@@ -292,7 +292,7 @@ public class homepage extends javax.swing.JFrame {
             fos.close();
 
             javax.swing.JOptionPane.showMessageDialog(this, "Welcome, " + playerName + "! Starting the game...");
-            hardHowToPage hard = new hardHowToPage(); 
+            hardHowToPage hard = new hardHowToPage(playerName); 
             hard.setVisible(true);
             this.dispose(); 
         } catch (IOException e) {

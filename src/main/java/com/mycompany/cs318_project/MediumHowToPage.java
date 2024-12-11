@@ -20,7 +20,9 @@ public class MediumHowToPage extends javax.swing.JFrame {
     /**
      * Creates new form MediumHowToPage
      */
-    public MediumHowToPage() {
+    private String playerName;
+    public MediumHowToPage(String playerName) {
+        this.playerName = playerName;
         initComponents();
     }
 
@@ -226,7 +228,7 @@ public class MediumHowToPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_okMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_okMouseClicked
-    MediumGame mediumGame = new MediumGame();
+    MediumGame mediumGame = new MediumGame(playerName);
     mediumGame.setVisible(true);
     this.dispose();   
     }//GEN-LAST:event_btn_okMouseClicked
@@ -261,7 +263,8 @@ public class MediumHowToPage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MediumHowToPage().setVisible(true);
+                String playerName = "DefaultPlayer"; 
+                new MediumHowToPage(playerName).setVisible(true);
             }
         });
     }

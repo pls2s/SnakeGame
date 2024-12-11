@@ -5,6 +5,7 @@
 package com.mycompany.cs318_project;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
@@ -18,6 +19,7 @@ import java.util.Map;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 /**
@@ -29,7 +31,9 @@ public class HardGame extends javax.swing.JFrame {
     /**
      * Creates new form EasyGame
      */
-    public HardGame() {
+    private final String playerName;
+    public HardGame(String playerName) {
+    this.playerName = playerName;
     initComponents();
     initGame();
     initKeyListener();
@@ -38,6 +42,7 @@ public class HardGame extends javax.swing.JFrame {
     
     
     private void initGame() {
+        
         loadAppleImage();
         snakeBody = new ArrayList<>();
         snakeBody.add(new Point(0, 0)); // จุดเริ่มต้นของงู
@@ -100,48 +105,62 @@ public class HardGame extends javax.swing.JFrame {
         for (int x = 0; x < GRID_SIZE; x++) {
             JLabel cell = new JLabel();
             cell.setOpaque(true); 
+            cell.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(0xFFE4CF)));
+            
             Point point = new Point(x, y);
             if (point.equals(snakeBody.get(0))) {
                 double angle = directionAngles.get(direction); // ดึงองศาของทิศทางปัจจุบัน
                 ImageIcon rotatedHead = rotateIcon(snakeHeadIcon, angle); // หมุนภาพหัวงู
                 cell.setIcon(rotatedHead);
-                cell.setBackground(Color.WHITE);
+                cell.setBackground(new Color(0xFFFBF1));
             } else if (snakeBody.contains(point)) {
                 int index = snakeBody.indexOf(point);
                 if (index % 2 == 0) {
                     cell.setIcon(snakeBodyDarkIcon);
-                    cell.setBackground(Color.WHITE);
+                    cell.setBackground(new Color(0xFFFBF1));
                 } else {
                     cell.setIcon(snakeBodyLightIcon);
-                    cell.setBackground(Color.WHITE);
+                    cell.setBackground(new Color(0xFFFBF1));
                 }
             } else if (point.equals(apple)) {
                 switch (appleType) {
                     case "RED" -> {
                         cell.setIcon(radAppleIcon);
-                        cell.setBackground(Color.WHITE); // แอปเปิ้ลสีแดง
+                        cell.setHorizontalAlignment(SwingConstants.CENTER); // จัดให้อยู่ตรงกลางแนวนอน
+                        cell.setVerticalAlignment(SwingConstants.CENTER);
+                        cell.setBackground(new Color(0xFFFBF1)); // แอปเปิ้ลสีแดง
                     }
                     case "GREEN" -> {
                         cell.setIcon(greenAppleIcon);
-                        cell.setBackground(Color.WHITE); // แอปเปิ้ลสีเขียว
+                        cell.setHorizontalAlignment(SwingConstants.CENTER); // จัดให้อยู่ตรงกลางแนวนอน
+                        cell.setVerticalAlignment(SwingConstants.CENTER);
+                        cell.setBackground(new Color(0xFFFBF1)); // แอปเปิ้ลสีเขียว
                     }
                     case "BLACK" -> {
                         cell.setIcon(blackAppleIcon);
-                        cell.setBackground(Color.WHITE); // แอปเปิ้ลสีดำ
+                        cell.setHorizontalAlignment(SwingConstants.CENTER); // จัดให้อยู่ตรงกลางแนวนอน
+                        cell.setVerticalAlignment(SwingConstants.CENTER);
+                        cell.setBackground(new Color(0xFFFBF1)); // แอปเปิ้ลสีดำ
                     }
                     case "GOLD" -> {
                         cell.setIcon(goldAppleIcon);
-                        cell.setBackground(Color.WHITE); // แอปเปิ้ลสีทอง
+                        cell.setHorizontalAlignment(SwingConstants.CENTER); // จัดให้อยู่ตรงกลางแนวนอน
+                        cell.setVerticalAlignment(SwingConstants.CENTER);
+                        cell.setBackground(new Color(0xFFFBF1)); // แอปเปิ้ลสีทอง
                     }
                 }
             } else if (rocks.contains(point)) {
                 cell.setIcon(RockIcon);
-                cell.setBackground(Color.WHITE); // หิน
+                cell.setHorizontalAlignment(JLabel.CENTER); // จัดก้อนหินให้อยู่กลางแนวนอน
+                cell.setVerticalAlignment(JLabel.CENTER);
+                cell.setBackground(new Color(0xFFFBF1)); // หิน
             } else if (grassList.contains(point)) {
                 cell.setIcon(grassIcon);
-                cell.setBackground(Color.WHITE); // หญ้า
+                cell.setHorizontalAlignment(JLabel.CENTER); // จัดก้อนหินให้อยู่กลางแนวนอน
+                cell.setVerticalAlignment(JLabel.CENTER);
+                cell.setBackground(new Color(0xFFFBF1));// หญ้า
             } else {
-                cell.setBackground(Color.WHITE); // ช่องว่าง
+                cell.setBackground(new Color(0xFFFBF1)); // ช่องว่าง
             }
             pnel_playpnel.add(cell);
         }
@@ -166,14 +185,29 @@ public class HardGame extends javax.swing.JFrame {
         // ตรวจสอบการชนกำแพง, ตัวเอง, หิน หรือหญ้า
         if (newHead.x < 0 || newHead.x >= GRID_SIZE || newHead.y < 0 || newHead.y >= GRID_SIZE 
                 || snakeBody.contains(newHead) || rocks.contains(newHead)) {
+            
             timer.stop();
             javax.swing.JOptionPane.showMessageDialog(this, "Game Over");
+            String difficulty = "hard"; 
+            int finalScore = Integer.parseInt(lbl_point.getText());
+            ScoreManager.saveScore(playerName, finalScore, difficulty);
+            Endgame endGamePage = new Endgame(playerName, finalScore, difficulty); // เปิดหน้าจอ Endgame
+            endGamePage.loadScores(); // โหลดคะแนนสำหรับแสดงใน JTable
+            endGamePage.setVisible(true);
+            this.dispose();
             return;
         }
 
         if (grassList.contains(newHead)) {
             timer.stop();
+            String difficulty = "hard";
             javax.swing.JOptionPane.showMessageDialog(this, "Game Over");
+            int finalScore = Integer.parseInt(lbl_point.getText());
+            ScoreManager.saveScore(playerName, finalScore, difficulty);
+            Endgame endGamePage = new Endgame(playerName, finalScore, difficulty); // เปิดหน้าจอ Endgame
+            
+            endGamePage.setVisible(true);
+            this.dispose();
             return;
         }
 
@@ -216,6 +250,8 @@ public class HardGame extends javax.swing.JFrame {
             }
         });
     }
+
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -398,7 +434,8 @@ public class HardGame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HardGame().setVisible(true);
+                String playerName = "DefaultPlayer"; 
+                new HardGame(playerName).setVisible(true);
             }
         });
     }
@@ -439,11 +476,11 @@ public class HardGame extends javax.swing.JFrame {
     ImageIcon originalIconLightBody = new ImageIcon(getClass().getResource("/snake_body_dark.png"));
     
     Image scaledImageApple = originalIconApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-    Image scaledImageRock = originalIconRock.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    Image scaledImageRock = originalIconRock.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
     Image scaledGreenApple = originalIconGreenApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     Image scaledGoldApple = originalIconGoldApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     Image scaledBlackApple = originalIconBlackApple.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-    Image scaledGrass = originalIcongrass.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    Image scaledGrass = originalIcongrass.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
     Image scaledHead = originalIconhead.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     Image scaleddarkBody = originalIcondarkBody.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     Image scaledLightBody = originalIconLightBody.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);

@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 /**
@@ -29,7 +30,10 @@ public class EasyGame extends javax.swing.JFrame {
     /**
      * Creates new form EasyGame
      */
-    public EasyGame() {
+    private final String playerName;
+    
+    public EasyGame(String playerName) {
+    this.playerName = playerName;
     initComponents();
     initGame();
     initKeyListener();
@@ -78,27 +82,31 @@ public class EasyGame extends javax.swing.JFrame {
     for (int y = 0; y < GRID_SIZE; y++) {
         for (int x = 0; x < GRID_SIZE; x++) {
             JLabel cell = new JLabel();
-            cell.setOpaque(true); // เปิดให้ JLabel มีพื้นหลัง
+            cell.setOpaque(true);
+            cell.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(0xFFE4CF)));
+            
             Point point = new Point(x, y);
             if (point.equals(snakeBody.get(0))) {
                 double angle = directionAngles.get(direction); // ดึงองศาของทิศทางปัจจุบัน
                 ImageIcon rotatedHead = rotateIcon(snakeHeadIcon, angle); // หมุนภาพหัวงู
                 cell.setIcon(rotatedHead);
-                cell.setBackground(Color.WHITE);
+                cell.setBackground(new Color(0xFFFBF1));
             } else if (snakeBody.contains(point)) {
                 int index = snakeBody.indexOf(point);
                 if (index % 2 == 1) {
                     cell.setIcon(snakeBodyDarkIcon);
-                    cell.setBackground(Color.WHITE);
+                    cell.setBackground(new Color(0xFFFBF1));
                 } else {
                     cell.setIcon(snakeBodyLightIcon);
-                    cell.setBackground(Color.WHITE);
+                    cell.setBackground(new Color(0xFFFBF1));
                 }
             } else if (point.equals(food)) {
                 cell.setIcon(appleIcon);
-                cell.setBackground(Color.WHITE); 
+                cell.setHorizontalAlignment(SwingConstants.CENTER); // จัดแนวนอนตรงกลาง
+                cell.setVerticalAlignment(SwingConstants.CENTER);
+                cell.setBackground(new Color(0xFFFBF1));
             } else {
-                cell.setBackground(Color.WHITE);
+                cell.setBackground(new Color(0xFFFBF1));
             }
             pnel_playpnel.add(cell);
         }
@@ -106,7 +114,6 @@ public class EasyGame extends javax.swing.JFrame {
     pnel_playpnel.revalidate();
     pnel_playpnel.repaint();
     }
-
 
 
     
@@ -123,7 +130,14 @@ public class EasyGame extends javax.swing.JFrame {
         // ตรวจสอบชนกำแพงหรือตัวเอง
         if (newHead.x < 0 || newHead.x >= GRID_SIZE || newHead.y < 0 || newHead.y >= GRID_SIZE || snakeBody.contains(newHead)) {
             timer.stop();
+            String difficulty = "easy";
             javax.swing.JOptionPane.showMessageDialog(this, "Game Over");
+            int finalScore = Integer.parseInt(lbl_point.getText());
+            ScoreManager.saveScore(playerName, finalScore, difficulty); // บันทึกคะแนน
+            Endgame endGamePage = new Endgame(playerName, finalScore, difficulty); // เปิดหน้าจอ Endgame
+            
+            endGamePage.setVisible(true);
+            this.dispose();
             return;
         }
 
@@ -340,7 +354,8 @@ public class EasyGame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EasyGame().setVisible(true);
+            String playerName = "DefaultPlayer"; 
+            new EasyGame(playerName).setVisible(true);
             }
         });
     }

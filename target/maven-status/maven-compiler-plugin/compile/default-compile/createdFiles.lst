@@ -1,5 +1,6 @@
 com\mycompany\cs318_project\MediumGame$1.class
 com\mycompany\cs318_project\EasyGame$2.class
+com\mycompany\cs318_project\Endgame$6$1.class
 com\mycompany\cs318_project\hardHowToPage$1.class
 com\mycompany\cs318_project\hardHowToPage.class
 com\mycompany\cs318_project\EasyHowToPage$2$1.class
@@ -8,12 +9,16 @@ com\mycompany\cs318_project\MediumHowToPage$1.class
 com\mycompany\cs318_project\main$1.class
 com\mycompany\cs318_project\MediumHowToPage$2$1.class
 com\mycompany\cs318_project\homepage$2.class
+com\mycompany\cs318_project\ScoreManager.class
+com\mycompany\cs318_project\Endgame$6.class
 com\mycompany\cs318_project\homepage.class
 com\mycompany\cs318_project\EasyHowToPage$3.class
 com\mycompany\cs318_project\MediumHowToPage$2.class
 com\mycompany\cs318_project\main$2.class
 com\mycompany\cs318_project\MediumHowToPage.class
 com\mycompany\cs318_project\homepage$6.class
+com\mycompany\cs318_project\Endgame$3.class
+com\mycompany\cs318_project\Endgame$7.class
 com\mycompany\cs318_project\main$6$1.class
 com\mycompany\cs318_project\homepage$3.class
 com\mycompany\cs318_project\MediumGame.class
@@ -21,8 +26,11 @@ com\mycompany\cs318_project\EasyHowToPage.class
 com\mycompany\cs318_project\hardHowToPage$2.class
 com\mycompany\cs318_project\homepage$7.class
 com\mycompany\cs318_project\MediumHowToPage$3.class
+com\mycompany\cs318_project\Endgame$4.class
 com\mycompany\cs318_project\hardHowToPage$2$1.class
+com\mycompany\cs318_project\Endgame.class
 com\mycompany\cs318_project\EasyGame.class
+com\mycompany\cs318_project\Endgame$5$1.class
 com\mycompany\cs318_project\hardHowToPage$3.class
 com\mycompany\cs318_project\main$5$1.class
 com\mycompany\cs318_project\main$6.class
@@ -30,6 +38,7 @@ com\mycompany\cs318_project\HardGame$2.class
 com\mycompany\cs318_project\homepage$4.class
 com\mycompany\cs318_project\main$3.class
 com\mycompany\cs318_project\EasyHowToPage$2.class
+com\mycompany\cs318_project\Endgame$1.class
 com\mycompany\cs318_project\MediumGame$2.class
 com\mycompany\cs318_project\EasyGame$1.class
 com\mycompany\cs318_project\main$4.class
@@ -39,5 +48,7 @@ com\mycompany\cs318_project\HardGame$1.class
 com\mycompany\cs318_project\HardGame.class
 com\mycompany\cs318_project\main$7.class
 com\mycompany\cs318_project\EasyHowToPage$1.class
+com\mycompany\cs318_project\Endgame$2.class
+com\mycompany\cs318_project\Endgame$5.class
 com\mycompany\cs318_project\homepage$5.class
 com\mycompany\cs318_project\homepage$8.class
